@@ -45,7 +45,7 @@ class Usage < ActiveRecord::Base
       usage = Usage.create( :period_from => [date, time_from].join(' '), :min_used => min_used, 
         :download => download, :fap => fap, :upload => upload  )
       #puts usage.inspect
-    end
+    end unless rows[3..-4].nil?
   end
   
   def self.calculate_24hour_totals
