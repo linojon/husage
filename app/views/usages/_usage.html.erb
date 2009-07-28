@@ -1,0 +1,22 @@
+<%# debugger %>
+<% bgcolor = case
+		when Usage::FREE_HOURS.include?( usage.period_from.hour): 'bgcolor="66CCFF" ' 
+		when usage.download_24hr >= Usage::LEVEL_RED : 'bgcolor="FF6666" '
+		when usage.download_24hr >= Usage::LEVEL_ORANGE : 'bgcolor="cccc66" '
+		else '' 
+		end
+	%>
+<tr>
+	<td align="center" class="mainText" <%= bgcolor %>><%= usage.period_from.strftime "%m/%d/%Y" %></td>	
+	<td align="center" class="mainText" <%= bgcolor %>><%= usage.period_from.time.strftime "%H:00" %></td>	
+	<td align="center" class="mainText" <%= bgcolor %>><%= usage.period_from.time.strftime "%H:59" %></td> 
+	<td align="right" class="mainText" <%= bgcolor %>><%= usage.min_used %>&nbsp;&nbsp;&nbsp;&nbsp;</td>	
+	<td align="right" class="mainText" <%= bgcolor %>><b><%= usage.download %></b>&nbsp;&nbsp;&nbsp;&nbsp;</td>	
+	<td align="center" class="mainText" <%= bgcolor %>><%= usage.fap %></td>
+	<td align="right" class="mainText" <%= bgcolor %>><%= usage.upload %>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+	<td align="right" class="mainText" <%= bgcolor %>><b><%= usage.download_24hr %></b>&nbsp;&nbsp;&nbsp;&nbsp;</td>	
+	<!-- <td align="right" class="mainText" <%= bgcolor %>>&nbsp;&nbsp;&nbsp;&nbsp;</td>	 -->
+</tr>							
+<% if usage.period_from.hour-1 == @usages.first.period_from.hour  %>
+	<tr><td colspan="8" bgcolor="888888"></td></tr>
+<% end %>

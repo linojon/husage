@@ -1,0 +1,22 @@
+
+following http://wiki.github.com/aslakhellesoy/cucumber/ruby-on-rails
+
+	$ cd rails
+	$ rails hughes
+	$ cd hughes
+	$ ruby script/generate cucumber
+	$ script/generate feature usage total:integer
+	save http://github.com/aslakhellesoy/cucumber_rails/raw/master/app/views/layouts/application.html.erb 
+	$ rake db:migrate  [generates schema.rb file]
+	$ rake features [fail]
+	$ script/generate rspec_scaffold Usage total:integer
+	
+===================================
+7/26/2009 hostingrails setup 
+
+	hostingrails: verify parkerhi/jonathan577 account (web and ssh)
+
+	verio: register domain name
+	edit DNS A record to 75.126.169.24 
+	
+	
