@@ -1,0 +1,24 @@
+<p>
+	The "Husage" utility for HughesNet users provides reports of your download usage over 24 hour periods, 
+	and sends you an email alert if your usage level exceeds a threshold. <%= link_to "Learn More", info_path('about') %>
+</p>
+
+<h1>Log-in</h1>
+<% form_for @user_session, :url => user_session_path do |f| %>
+  <%= f.error_messages :header_message => 'Log in error' %>
+  <%= f.label :site, "HughesNet Site ID" %> <%= f.error_message_on :site %><br />
+  <%= f.text_field :site %><br />
+  <br />
+  <%= f.label :password %> <%= f.error_message_on :password %><br />
+  <%= f.password_field :password %><br />
+  <br />
+  <%= f.check_box :remember_me %><%= f.label :remember_me %><br />
+  <br />
+  <%= f.submit "Log in" %>
+<% end %>
+
+<h1>Not Yet Registered?</h1>
+<p>To use this Husage utility you need be registered. 
+	<%= button_to "Register Now", new_user_path %>
+</p>
+<br/>

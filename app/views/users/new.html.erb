@@ -1,0 +1,24 @@
+<h1>Register</h1>
+
+<p>To use the Husage utility you must register. Just enter your HughesNet site ID, a valid email address, and choose a password.</p> 
+
+<p>We need your email address to send you a message if your usage exceeds certain levels. We respect your privacy and will never share your email address or send unsolicited emails.</p>
+
+<p>Note, this site is NOT AFFILIATED WITH HughesNet. Your registration here is not affiliated with other HughesNet accounts you might have. Please choose a unique password.</p> 
+ 
+<% form_for @user, :url => account_path do |f| %>
+  <%= f.error_messages %>
+	<%= f.label :site, 'HughesNet Site ID' %><br />
+	<%= f.text_field :site %><br />
+	<br />
+	<%= f.label :email %><br />
+	<%= f.text_field :email %><br />
+	<br />
+	<%= f.label :password, f.object.new_record? ? nil : "Change password" %><br />
+	<%= f.password_field :password %><br />
+	<br />
+	<%= f.label :password_confirmation %><br />
+	<%= f.password_field :password_confirmation %><br />
+	<br/>
+	<%= f.submit "Register" %>
+<% end %>

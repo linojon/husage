@@ -110,7 +110,7 @@ namespace :deploy do
     
     if DATABASE == 'sqlite3'
       # NOTE: or, can change this to a different shared dir if also set in database.yml
-      run "cd #{release_path}/db && ln -s #{shared_path}/db/production.sqlite3"
+      run "cd #{release_path} && ln -s #{shared_path}/sqlite"
     end
 
     # # spec on server

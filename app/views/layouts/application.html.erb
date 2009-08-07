@@ -1,0 +1,21 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+  <title>Husage: Satellite Internet Usage Utility</title>
+
+	<%= stylesheet_link_tag "http://customercare.myhughesnet.com/style/style.css"%>
+  <%= stylesheet_link_tag 'style' %>
+</head>
+<body>
+	<h3>Husage: Satellite Internet Usage Utility</h3>
+	<%= render :partial => 'layouts/menu' unless current_site.nil? %>
+	<%= content_tag( :p, flash[:notice], :id => 'flash_notice') unless flash[:notice].blank? %>
+	<%= yield %>
+	<hr/>
+	<div id="footer">
+		<p class="align-center"><%= link_to "Home", "/" %> | <%= link_to "About", info_path('about') %> | <%= link_to "Donate", info_path('donate') %></p>
+		<p>This site is for informational purposes only. All data originates from HughesNet public pages, and is subject to all the same limitations, warnings, and disclaimers offered by HughesNet. No warranty is expressed or implied. Use at your own risk. NOT AFFILIATED WITH HUGHES, HughesNet, Hughes Network Systems LLC, etc.</p>
+	</div>
+</body>
+</html>

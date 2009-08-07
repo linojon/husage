@@ -1,7 +1,24 @@
 ActionController::Routing::Routes.draw do |map|
-  map.root :controller => "usages", :action => 'index'
-  map.refresh '/refresh', :controller => "usages", :action => 'refresh'
-  map.notify '/notify', :controller => "usages", :action => 'notify'
+  map.resource :user_session
+  map.resource :account, :controller => "users"
+  map.resources :users
+  
+  map.root :controller => "usages", :action => "index"
+  
+  map.usages      'usages',   :controller => "usages", :action => 'index'
+  map.refresh     'refresh',  :controller => "usages", :action => 'refresh'
+  map.notify      'notify',   :controller => "usages", :action => 'notify'
+  map.original    'original', :controller => 'usages', :action => 'original'
+  map.site        'site',     :controller => 'usages', :action => 'site'  
+  map.setup       'setup',    :controller => 'usages', :action => 'setup'
+  map.setup_create 'setup_create', :controller => 'usages', :action => 'setup_create'
+  
+  map.preferences 'preferences', :controller => 'users', :action => 'edit', :id => :current
+
+  map.login       '/login',   :controller => 'user_sessions', :action => 'new'
+  map.logout      '/logout',  :controller => 'user_sessions', :action => 'destroy'
+  
+  map.info        '/info/:id', :controller => 'info', :action => 'show'
   
   # The priority is based upon order of creation: first created -> highest priority.
 

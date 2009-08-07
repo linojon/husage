@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090724202243) do
+ActiveRecord::Schema.define(:version => 20090806234142) do
 
   create_table "usages", :force => true do |t|
     t.datetime "period_from"
@@ -21,6 +21,22 @@ ActiveRecord::Schema.define(:version => 20090724202243) do
     t.integer  "upload_24hr"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "site"
+  end
+
+  create_table "users", :force => true do |t|
+    t.string   "site",              :null => false
+    t.string   "email",             :null => false
+    t.string   "crypted_password",  :null => false
+    t.string   "password_salt",     :null => false
+    t.string   "persistence_token", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "other_emails"
+    t.integer  "warning_threshold"
+    t.integer  "alert_threshold"
+    t.boolean  "send_emails"
+    t.boolean  "run_cron"
   end
 
 end

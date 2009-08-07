@@ -1,12 +1,13 @@
 class UsageNotifier < ActionMailer::Base
 
-  def level_message( usage )
-    @recipients = "jonathan@linowes.com, lisa@linowes.com"
-    @from       = "admin@linowes.com"
-    @subject    = "Hughes Usage Alert: #{usage.download_24hr}MB"
+  def level_message( user, usage )
+    @recipients = user.email 
+    @recipients += user.other_emails unless user.other_emails.blank? 
+    @from       = "husage@husage.com"
+    @subject    = "Husage Alert: #{usage.download_24hr}MB"
     @sent_on    = Time.now
     @headers    = {}
-    @body       = { :usage => usage }
+    @body       = { :user => user, :usage => usage }
   end
     
 

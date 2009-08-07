@@ -5,24 +5,58 @@ describe UsagesController do
   def mock_usage(stubs={})
     @mock_usage ||= mock_model(Usage, stubs)
   end
+  
+  def mock_user( stubs = { :site => '12345'})
+    @mock_user ||= mock_model(User, stubs)
+  end
+  
+  before :each do
+    attrs = { :site => '12345', :warning_threshold => 300 }
+    controller.stub!(:current_user).and_return(mock_user(attrs))
+  end
 
   describe "GET index" do
     it "assigns all usages as @usages" do
-      Usage.stub!(:find).with(:all).and_return([mock_usage])
+      Usage.stub!(:all).and_return([mock_usage])
       get :index
       assigns[:usages].should == [mock_usage]
     end
     
-    it "paginates the list"
+    it "sorts reverse chronological" do
+      Usage.should_receive(:all).with( hash_including(:order => "period_from DESC") ).and_return([mock_usage])
+      get :index
+    end
     
   end
   
   describe "GET refresh" do
-    it "finds the Hughesnet usage report"
-    it "load new usages into the database"
-    it "ignores existing usages in the database"
-    it "calculates 24 hour downloads where undefined"
-    it "calculates 24 hour uploads where undefined"
+    before :each do
+      Usage.stub!(:refresh)
+      Usage.stub!(:delete_older_than)
+      Usage.stub!(:first).and_return(@usage=mock_usage(:download_24hr => 100))
+      UsageNotifier.stub!(:deliver_level_message)
+    end
+    
+    it "refreshes the database from the Hughes usage report" do
+      Usage.should_receive(:refresh).with('12345')
+      get :refresh
+    end
+    
+    it "notifies if most recent is above threshold" do
+      @usage.stub!(:download_24hr).and_return(400)
+      UsageNotifier.should_receive(:deliver_level_message)
+      get :refresh
+    end
+    
+    it "doesnt notify if most recent is below threshold" do
+      UsageNotifier.should_receive(:deliver_level_message).never
+      get :refresh
+    end
+    
+    it "redirects to index when done" do
+      get :refresh
+      response.should redirect_to('/usages')
+    end
   end
 
   # describe "GET show" do

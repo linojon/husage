@@ -1,0 +1,56 @@
+<% form_for @user, :url => account_path do |f| %>
+	<div style="font-size:80%">
+  <%= f.error_messages :header_message => 'Errors prevented preferences from being updated' %>
+	<%= f.label :site, 'HughesNet Site ID' %><br />
+	<%= f.text_field :site, :disabled => true %><br />
+	<br />
+	<fieldset>
+		<legend>Usage Settings</legend>
+		<%= f.label :warning_threshold %> <%= f.error_message_on :warning_threshold %>
+		<%= form_help :warning_threshold %>
+		<br />
+		<%= f.text_field :warning_threshold, :size => 5, :class => 'level-warning' %><br />
+		<br/>
+		<%= f.label :alert_threshold %> <%= f.error_message_on :alert_threshold %>
+		<%= form_help :alert_threshold %>
+		<br />
+		<%= f.text_field :alert_threshold, :size => 5, :class => 'level-alert' %><br />
+		<br/>
+		<%= f.check_box :run_cron %> <%= f.label :run_cron, "Re-calculate hourly" %>
+		<%= form_help :run_hourly %>
+		
+	</fieldset>
+	<br/>
+	<fieldset>
+		<legend>Contact Info</legend>
+		<%= f.label :email, "Primary email address" %> <%= f.error_message_on :email %>
+		<%= form_help :email %>
+		<br />
+		<%= f.text_field :email %><br />
+		<br />
+		<%= f.label :other_emails %>  <%= f.error_message_on :other_emails %>
+		<%= form_help :other_emails %>
+		<br />
+		<%= f.text_area :other_emails, :size => '30x5' %><br />
+		<br />
+		<%= f.check_box :send_emails %> <%= f.label :send_emails %>
+		<%= form_help :send_emails %>
+	</fieldset>
+	<br/>
+	<fieldset>
+		<legend>Change Password</legend>
+		<%= f.label :password, "New password" %> <%= f.error_message_on :password %>
+		<br />
+		<%= f.password_field :password %><br />
+		<br />
+		<%= f.label :password_confirmation %> <%= f.error_message_on :password_confirmation %>
+		<br />
+		<%= f.password_field :password_confirmation %><br />
+	</fieldset>
+	<br/>
+	<%= f.submit "Update" %>
+	&nbsp; &nbsp;
+	<%= link_to "Cancel changes", usages_path %>
+	</div>
+<% end %>
+<br/>
