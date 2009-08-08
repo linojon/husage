@@ -1,8 +1,10 @@
 <hr/>
 <div id="footer">
-	<div class="align-center">
+	<p class="align-center">
 		<%= link_to "Home", "/" %> | <%= link_to "About", info_path('about') %>
-	</div>
-	<%= render :partial => 'layouts/donate' %>
+	</p>
+	<p class="align-center">
+		Like this service? Buy me <%= link_to "a cup of coffee or a tank of gas", info_path("donate") %>!
+	</p>
 	<p>This site is for informational purposes only. All data originates from HughesNet public pages, and is subject to all the same limitations, warnings, and disclaimers offered by HughesNet. No warranty is expressed or implied. Use at your own risk. NOT AFFILIATED WITH HUGHES, HughesNet, Hughes Network Systems LLC, etc.</p>
 </div>
