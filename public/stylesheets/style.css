@@ -7,6 +7,20 @@ h1, h2, h3 {
 	color: #10238C;
 }
 
+a {
+	color: #10238C;
+}
+a:hover {
+	color: #88f; /* 9cf */
+}
+
+h3 a {
+	text-decoration: none;
+}
+h3 a:hover {
+	text-decoration: underline;
+}
+
 form {
 	margin-left: 2em;
 }
@@ -146,7 +160,8 @@ div.inline-button form.button-to div {
 	border-width: 1px 1px 0 1px;
 }
 #mainmenu li a:hover {
-	text-decoration: underline;
+	/*text-decoration: underline;*/
+	background-color: #9cf;
 }
 #mainmenu li span a {
 	font-weight: bold;
