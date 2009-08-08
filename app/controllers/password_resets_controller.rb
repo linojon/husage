@@ -14,7 +14,7 @@ class PasswordResetsController < ApplicationController
         "Please check your email."  
       redirect_to root_url  
     else  
-      flash[:notice] = "No user was found with that site ID"  
+      flash.now[:notice] = "That site ID is not registered here. Please try again or <a href=\"#{new_user_path}\">register now</a>"  
       render :action => :new  
     end  
   end  
@@ -25,7 +25,7 @@ class PasswordResetsController < ApplicationController
 
   def update  
     @user.password = params[:user][:password]  
-    @user.password_confirmation = params[:user][: password_confirmation]  
+    @user.password_confirmation = params[:user][:password_confirmation]  
     if @user.save  
       flash[:notice] = "Password successfully updated"  
       redirect_to root_url  
