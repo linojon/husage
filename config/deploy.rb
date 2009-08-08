@@ -1,4 +1,4 @@
-set :application, "husage"
+set :application, "hughes" #"husage"
 set :domain, "rails.parkerhill.com"
 set :user, "parkerhi"
 

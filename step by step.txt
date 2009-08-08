@@ -43,13 +43,5 @@ authlogic gem
 	
 ================================
 
-	git branch devel
-	git checkout devel
-	git push origin devel
-			FAILS
-	git checkout master
-	git push
-			FAILS
-			
 			
 	
