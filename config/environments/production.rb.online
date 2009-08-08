@@ -28,13 +28,17 @@ config.action_view.cache_template_loading            = true
 # config.threadsafe!
 
 # smtp is default
-config.action_mailer.smtp_settings = {
-  :address      => "smtp.hughes.net",
-  :port         => 25,
-  :domain       => "www.parkerhill.com",
-  :authentication => :login,
-  :user_name    => "linoj@hughes.net",
-  :password     => "jonathan"
-}
+# config.action_mailer.smtp_settings = {
+#   :address      => "smtp.hughes.net",
+#   :port         => 25,
+#   :domain       => "www.parkerhill.com",
+#   :authentication => :login,
+#   :user_name    => "linoj@hughes.net",
+#   :password     => "jonathan"
+# }
+config.action_mailer.delivery_method = :sendmail  
+config.action_mailer.perform_deliveries = true  
+config.action_mailer.raise_delivery_errors = true  
+config.action_mailer.default_charset = "utf-8"
 
 config.action_controller.relative_url_root = 'hughes'

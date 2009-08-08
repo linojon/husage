@@ -24,6 +24,11 @@ legend {
 	border: 1px solid #888;
 }
 
+div.inline-button form.button-to,
+div.inline-button form.button-to div {
+	display: inline;
+}
+
 .align-left {
 	text-align: left;
 }
@@ -58,11 +63,13 @@ legend {
 }
  
 #flash_notice {
-  background-color: #4668E0; /* #CFC */
-  border: solid 1px #10238C; /* #6C6 */
-	color: #ff0;
+  background-color: #ee0; /* #CFC */
+  border: solid 1px #4668E0; /* #6C6 */
+	color: #10238C;
 	margin-left: 15px;
 	width: 725px;
+	font-size: 80%;
+	font-style: italic;
 }
  
 #flash_error {
@@ -206,6 +213,15 @@ legend {
 /* --------------------- */
 
 #footer {
-	font-size: 10px;
 	margin: 2em;
+	font-size: 12px;
+}
+
+#footer .donate {
+	text-align: center; 
+	margin: 1em 0;
+}
+
+#footer p {
+	font-size: 10px;
 }

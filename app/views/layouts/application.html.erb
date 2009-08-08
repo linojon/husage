@@ -12,10 +12,6 @@
 	<%= render :partial => 'layouts/menu' unless current_site.nil? %>
 	<%= content_tag( :p, flash[:notice], :id => 'flash_notice') unless flash[:notice].blank? %>
 	<%= yield %>
-	<hr/>
-	<div id="footer">
-		<p class="align-center"><%= link_to "Home", "/" %> | <%= link_to "About", info_path('about') %> | <%= link_to "Donate", info_path('donate') %></p>
-		<p>This site is for informational purposes only. All data originates from HughesNet public pages, and is subject to all the same limitations, warnings, and disclaimers offered by HughesNet. No warranty is expressed or implied. Use at your own risk. NOT AFFILIATED WITH HUGHES, HughesNet, Hughes Network Systems LLC, etc.</p>
-	</div>
+	<%= render :partial => 'layouts/footer' %>
 </body>
 </html>

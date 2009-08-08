@@ -1,8 +1,17 @@
+<div style="float:right; margin-right:20px" class="inline-button">
+	<%= button_to "Delete This Report", { :action => "delete" }, :confirm => "Deleting this Husage report and login. Are you sure?", :method => :delete %> 	
+	<%= form_help :delete_site %>
+</div>
+
 <% form_for @user, :url => account_path do |f| %>
 	<div style="font-size:80%">
   <%= f.error_messages :header_message => 'Errors prevented preferences from being updated' %>
-	<%= f.label :site, 'HughesNet Site ID' %><br />
-	<%= f.text_field :site, :disabled => true %><br />
+
+	<% site_editable = (Usage.count( :conditions => { :site => current_site }) == 0) %>
+	<%= f.label :site, 'HughesNet Site ID' %>
+	<%= form_help( site_editable ? :site_ID : :site_id_not_editable) %>
+	<br />
+	<%= f.text_field :site, :disabled => !site_editable %><br />
 	<br />
 	<fieldset>
 		<legend>Usage Settings</legend>
@@ -33,19 +42,20 @@
 		<br />
 		<%= f.text_area :other_emails, :size => '30x5' %><br />
 		<br />
-		<%= f.check_box :send_emails %> <%= f.label :send_emails %>
+		<%= f.check_box :send_emails %> <%= f.label :send_emails, "Send email notifications" %>
 		<%= form_help :send_emails %>
 	</fieldset>
 	<br/>
 	<fieldset>
 		<legend>Change Password</legend>
 		<%= f.label :password, "New password" %> <%= f.error_message_on :password %>
+		<%= form_help :password %>
 		<br />
 		<%= f.password_field :password %><br />
 		<br />
 		<%= f.label :password_confirmation %> <%= f.error_message_on :password_confirmation %>
 		<br />
-		<%= f.password_field :password_confirmation %><br />
+		<%= f.password_field :password_confirmation %>
 	</fieldset>
 	<br/>
 	<%= f.submit "Update" %>

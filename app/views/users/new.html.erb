@@ -8,17 +8,28 @@
  
 <% form_for @user, :url => account_path do |f| %>
   <%= f.error_messages %>
-	<%= f.label :site, 'HughesNet Site ID' %><br />
-	<%= f.text_field :site %><br />
+	<%= f.label :site, 'HughesNet Site ID' %> <%= f.error_message_on :site %>
+	<%= form_help :site_ID %>
 	<br />
-	<%= f.label :email %><br />
-	<%= f.text_field :email %><br />
+	<%= f.text_field :site %>
 	<br />
-	<%= f.label :password, f.object.new_record? ? nil : "Change password" %><br />
-	<%= f.password_field :password %><br />
 	<br />
-	<%= f.label :password_confirmation %><br />
-	<%= f.password_field :password_confirmation %><br />
+	<%= f.label :email %> <%= f.error_message_on :email %>
+	<%= form_help :email %>
+	<br />
+	<%= f.text_field :email %>
+	<br />
+	<br />
+	<%= f.label :password %> <%= f.error_message_on :password %>
+	<%= form_help :password %>
+	<br />
+	<%= f.password_field :password %>
+	<br />
+	<br />
+	<%= f.label :password_confirmation %> <%= f.error_message_on :warning_threshold %>
+	<br />
+	<%= f.password_field :password_confirmation %>
+	<br />
 	<br/>
 	<%= f.submit "Register" %>
 <% end %>

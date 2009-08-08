@@ -41,4 +41,15 @@ authlogic gem
 	
 	$ script/generate controller users
 	
+================================
+
+	git branch devel
+	git checkout devel
+	git push origin devel
+			FAILS
+	git checkout master
+	git push
+			FAILS
+			
+			
 	

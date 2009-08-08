@@ -1,6 +1,6 @@
 class UsagesController < ApplicationController
   
-  before_filter :require_user, :except => :index
+  before_filter :require_user, :except => [:index, :refresh_all]
   
   include ActionView::Helpers::TextHelper # pluralize
   
@@ -31,7 +31,7 @@ class UsagesController < ApplicationController
   
   def refresh
     count = Usage.refresh( current_site )
-    notify_usage current_user.warning_threshold
+    notify_usage current_user.warning_threshold if current_user.send_emails
     if count == 0
       flash[:notice] = 'No new updates'
     else
@@ -40,7 +40,7 @@ class UsagesController < ApplicationController
     Usage.delete_older_than current_site, 30
     redirect_to usages_path 
   end
-  
+
   def notify
     notify_usage
     redirect_to usages_path

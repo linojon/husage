@@ -1,5 +1,4 @@
 class User < ActiveRecord::Base
-  has_many :usages
   
   acts_as_authentic do |c|
     c.login_field = 'site'
@@ -26,5 +25,9 @@ class User < ActiveRecord::Base
         self.other_emails = emails.join(', ')
       end
     end
+  end
+  
+  def before_destroy
+    Usage.delete_all ["site = ?", site]
   end
 end

@@ -1,4 +1,0 @@
-#!/bin/bash
-cd /Users/jonathan/rails/husage
-#/opt/local/bin/ruby script/runner -eproduction 'Usage.refresh'
-curl "http://localhost:3006/refresh"

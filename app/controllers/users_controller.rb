@@ -13,6 +13,7 @@ class UsersController < ApplicationController
       UserSession.create(:site => params[:user][:site], :password => params[:user][:password])
       flash[:notice] = "Registration successful."
       #redirect_back_or_default account_url
+      AdminNotifier.deliver_message @user, "Created new user/site"
       redirect_to usages_url
     else
       render :action => :new
@@ -28,6 +29,7 @@ class UsersController < ApplicationController
   end
   
   def update
+    #debugger
     @user = current_user
     if @user.update_attributes(params[:user])
       flash[:notice] = "Preferences updated."
@@ -35,6 +37,16 @@ class UsersController < ApplicationController
     else
       render :action => :edit
     end
+  end
+  
+  def destroy
+    site = current_site
+    user = current_user
+    current_user_session.destroy
+    user.destroy
+    flash[:notice] = "Husage reports and login deleted for #{site}"
+    AdminNotifier.deliver_message @user, "Deleted user/site"
+    redirect_to login_url
   end
   
 end
