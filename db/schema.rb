@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090806234142) do
+ActiveRecord::Schema.define(:version => 20090808224204) do
 
   create_table "usages", :force => true do |t|
     t.datetime "period_from"
@@ -24,12 +24,14 @@ ActiveRecord::Schema.define(:version => 20090806234142) do
     t.string   "site"
   end
 
+  add_index "usages", ["site"], :name => "index_usages_on_site"
+
   create_table "users", :force => true do |t|
-    t.string   "site",              :null => false
-    t.string   "email",             :null => false
-    t.string   "crypted_password",  :null => false
-    t.string   "password_salt",     :null => false
-    t.string   "persistence_token", :null => false
+    t.string   "site",                              :null => false
+    t.string   "email",                             :null => false
+    t.string   "crypted_password",                  :null => false
+    t.string   "password_salt",                     :null => false
+    t.string   "persistence_token",                 :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "other_emails"
@@ -37,6 +39,11 @@ ActiveRecord::Schema.define(:version => 20090806234142) do
     t.integer  "alert_threshold"
     t.boolean  "send_emails"
     t.boolean  "run_cron"
+    t.string   "perishable_token",  :default => "", :null => false
   end
+
+  add_index "users", ["email"], :name => "index_users_on_email"
+  add_index "users", ["perishable_token"], :name => "index_users_on_perishable_token"
+  add_index "users", ["site"], :name => "index_users_on_site"
 
 end

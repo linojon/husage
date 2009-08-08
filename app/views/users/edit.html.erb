@@ -5,7 +5,7 @@
 
 <% form_for @user, :url => account_path do |f| %>
 	<div style="font-size:80%">
-  <%= f.error_messages :header_message => 'Errors prevented preferences from being updated' %>
+  <%= f.error_messages :header_message => 'Please try again!' %>
 
 	<% site_editable = (Usage.count( :conditions => { :site => current_site }) == 0) %>
 	<%= f.label :site, 'HughesNet Site ID' %>

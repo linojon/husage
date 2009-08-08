@@ -32,6 +32,6 @@ end
 def notify_usage( user )
   most_recent = Usage.first :conditions => { :site => user.site }, :order => 'period_from DESC'
   # 24hr can be nil during free download periods
-  UsageNotifier.deliver_level_message( user, most_recent ) if most_recent && most_recent.download_24hr && 
+  Notifier.deliver_usage_message( user, most_recent ) if most_recent && most_recent.download_24hr && 
                                                               most_recent.download_24hr >= user.warning_threshold
 end

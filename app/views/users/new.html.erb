@@ -7,7 +7,7 @@
 <p>Note, this site is NOT AFFILIATED WITH HughesNet. Your registration here is not affiliated with other HughesNet accounts you might have. Please choose a unique password.</p> 
  
 <% form_for @user, :url => account_path do |f| %>
-  <%= f.error_messages %>
+  <%= f.error_messages :header_message => 'Please try again!' %>
 	<%= f.label :site, 'HughesNet Site ID' %> <%= f.error_message_on :site %>
 	<%= form_help :site_ID %>
 	<br />

@@ -34,7 +34,7 @@ describe UsagesController do
       Usage.stub!(:refresh)
       Usage.stub!(:delete_older_than)
       Usage.stub!(:first).and_return(@usage=mock_usage(:download_24hr => 100))
-      UsageNotifier.stub!(:deliver_level_message)
+      Notifier.stub!(:deliver_usage_message)
     end
     
     it "refreshes the database from the Hughes usage report" do
@@ -44,12 +44,12 @@ describe UsagesController do
     
     it "notifies if most recent is above threshold" do
       @usage.stub!(:download_24hr).and_return(400)
-      UsageNotifier.should_receive(:deliver_level_message)
+      Notifier.should_receive(:deliver_usage_message)
       get :refresh
     end
     
     it "doesnt notify if most recent is below threshold" do
-      UsageNotifier.should_receive(:deliver_level_message).never
+      Notifier.should_receive(:deliver_usage_message).never
       get :refresh
     end
     

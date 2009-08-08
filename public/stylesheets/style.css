@@ -118,6 +118,7 @@ div.inline-button form.button-to div {
   color: #333;
   margin-bottom: 0;
   padding: 8px;
+	font-size: 12px;
 }
  
 #errorExplanation ul {
