@@ -45,7 +45,7 @@ class UsersController < ApplicationController
     current_user_session.destroy
     user.destroy
     flash[:notice] = "Husage reports and login deleted for #{site}"
-    Notifier.deliver_admin_message "Deleted user/site", @user
+    Notifier.deliver_admin_message "Deleted user/site", user
     redirect_to login_url
   end
   
