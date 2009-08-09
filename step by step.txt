@@ -75,7 +75,7 @@ add request reset password
 cronjob
 	to run every hour at 5 minutes past
 	
-	5  *  *  *  *  cd ~/hughes && rake husage:refreshAll
+	5  *  *  *  *  cd ~/hughes && rake husage:refreshAll RAILS_ENV=production
 	
 ==============================
 	
