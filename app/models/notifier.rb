@@ -24,4 +24,5 @@ class Notifier < ActionMailer::Base
     recipients    "husage.net@gmail.com"
     sent_on       Time.now
     body          :user => user
+  end
 end
