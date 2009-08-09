@@ -20,13 +20,13 @@
 	<%= f.text_field :email %>
 	<br />
 	<br />
-	<%= f.label :password %> <%= f.error_message_on :password %>
+	<%= f.label :password, "Choose a password" %> <%= f.error_message_on :password %>
 	<%= form_help :password %>
 	<br />
 	<%= f.password_field :password %>
 	<br />
 	<br />
-	<%= f.label :password_confirmation %> <%= f.error_message_on :warning_threshold %>
+	<%= f.label :password_confirmation, "Re-type password" %> <%= f.error_message_on :warning_threshold %>
 	<br />
 	<%= f.password_field :password_confirmation %>
 	<br />

@@ -6,9 +6,11 @@
   <%= stylesheet_link_tag 'style' %>
 </head>
 <body>
-	<h3>Husage: Satellite Internet Usage Utility</h3>
+	<div class="wrapper">
+	<%= render :partial => 'layouts/banner' %>
 	<%= render :partial => 'layouts/menu' %>
 	<%= yield %>
 	<%= render :partial => 'layouts/footer' %>
+	</div>
 </body>
 </html>

@@ -13,7 +13,7 @@ class UsersController < ApplicationController
       UserSession.create(:site => params[:user][:site], :password => params[:user][:password])
       flash[:notice] = "Registration successful."
       #redirect_back_or_default account_url
-      Notifier.deliver_admin_message @user, "Created new user/site"
+      Notifier.deliver_admin_message "Created new user/site", @user
       redirect_to usages_url
     else
       render :action => :new
@@ -45,7 +45,7 @@ class UsersController < ApplicationController
     current_user_session.destroy
     user.destroy
     flash[:notice] = "Husage reports and login deleted for #{site}"
-    Notifier.deliver_admin_message @user, "Deleted user/site"
+    Notifier.deliver_admin_message "Deleted user/site", @user
     redirect_to login_url
   end
   

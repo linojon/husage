@@ -1,4 +1,6 @@
 <%= @message %>
 
+<% unless @user.blank? -%>
 Site ID: <%= @user.site %>
+<% end -%>
 

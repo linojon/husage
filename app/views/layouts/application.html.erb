@@ -6,14 +6,16 @@
 	<meta name="Description" content="Submit.. Review.. Decide! Use ReviewRamp wherever you accept application forms. Customize forms, data, and pages. Securely manage your private community of submitters and reviewers. Easy to setup." />
 	<meta name="Keywords" content="husage, hughesnet usage, HughesNet, myhughesnet, Site ID, frm_usage, act_usage, satellite internet, usage, FAP, Fair Access Policy" />
 
-	<%= stylesheet_link_tag "http://customercare.myhughesnet.com/style/style.css"%>
+	<%= stylesheet_link_tag "http://customercare.myhughesnet.com/style/style.css" %>
   <%= stylesheet_link_tag 'style' %>
 </head>
 <body>
-	<h3><a href="/">Husage: Satellite Internet Usage Utility</a></h3>
+	<div class="wrapper">
+	<%= render :partial => 'layouts/banner' %>
 	<%= render :partial => 'layouts/menu' unless current_site.nil? %>
 	<%= content_tag( :p, flash[:notice], :id => 'flash_notice') unless flash[:notice].blank? %>
 	<%= yield %>
 	<%= render :partial => 'layouts/footer' %>
+	</div>
 </body>
 </html>

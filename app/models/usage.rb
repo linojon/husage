@@ -48,7 +48,7 @@ class Usage < ActiveRecord::Base
   end
   
   def self.parse_and_save_usages( site, report ) 
-    rows = report.xpath("//div[@class='mainText']/following::table/tr")
+    rows = report.xpath("//div[@class='mainText']/following::table/tr").to_a #need to explicitly convert to array
     rows[3..-4].each do |row|
       #debugger
       tds = row.xpath("td")

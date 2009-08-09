@@ -18,11 +18,11 @@ class Notifier < ActionMailer::Base
     body          :user => user, :usage => usage
   end
   
-  def admin_message( subj, message, user=nil )
+  def admin_message( subj, user=nil, message=nil )
     subject       "Husage Admin: #{subj}"
     from          "Husage Notifier <husage.net@gmail.com>"
     recipients    "husage.net@gmail.com"
     sent_on       Time.now
-    body          :user => user
+    body          :user => user, :message => message||subj
   end
 end

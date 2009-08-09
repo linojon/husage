@@ -51,7 +51,7 @@
 		<%= f.label :password, "New password" %> <%= f.error_message_on :password %>
 		<%= form_help :password %>
 		<br />
-		<%= f.password_field :password %><br />
+		<%= f.password_field :password, :value => nil, :autocomplete => 'off' %><br />
 		<br />
 		<%= f.label :password_confirmation %> <%= f.error_message_on :password_confirmation %>
 		<br />

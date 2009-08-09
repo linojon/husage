@@ -1,4 +1,4 @@
-body {
+.wrapper {
 	padding: 0 1em;
 	font-family: Lucida Grande, Lucida Sans Unicode, Verdana, Arial, sans-serif;
 }
@@ -12,13 +12,6 @@ a {
 }
 a:hover {
 	color: #88f; /* 9cf */
-}
-
-h3 a {
-	text-decoration: none;
-}
-h3 a:hover {
-	text-decoration: underline;
 }
 
 form {
@@ -133,6 +126,25 @@ div.inline-button form.button-to div {
 .formError {
 	display: inline;
 	color: #c00;
+}
+
+/* --------------------- */
+.banner {
+	width: 100%; 
+	background-color:#10238C;
+}
+
+.banner p {
+	margin: 0;
+	padding: 0.5em;
+	font-size:120%; 
+	text-align:center;
+	color: #fff;
+}
+
+.banner p a {
+	color: #fff;
+	text-decoration: none;
 }
 
 /* --------------------- */

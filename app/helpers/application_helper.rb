@@ -29,4 +29,21 @@ module ApplicationHelper
     :password => 'Choosing a secret password lets you log in to get your Husage reports. Note, your registration and password here is not affiliated with other HughesNet accounts you might have.',
     :delete_site => 'Delete this log-in and all reports for the HughesNet Site ID. (Does not affect your HughesNet account in any way)'
   }
+  
+    
+  def button_with_disable_to( name, options={}, html_options={} )
+    # adapted from #submit_tag (File rails-2.3.2/actionpack/lib/action_view/helpers/form_tag_helper.rb, line 348)
+    html_options.stringify_keys!
+    disable_with = html_options.delete("disable_with")
+    disable_with ||= "One moment please- Processing..."
+    disable_with = "this.value='#{disable_with}'"
+    html_options["onclick"]  = "if (window.hiddenCommit) { window.hiddenCommit.setAttribute('value', this.value); }"
+    html_options["onclick"] << "else { hiddenCommit = this.cloneNode(false);hiddenCommit.setAttribute('type', 'hidden');this.form.appendChild(hiddenCommit); }"
+    html_options["onclick"] << "this.setAttribute('originalValue', this.value);this.disabled = true;#{disable_with};"
+    html_options["onclick"] << "result = (this.form.onsubmit ? (this.form.onsubmit() ? this.form.submit() : false) : this.form.submit());"
+    html_options["onclick"] << "if (result == false) { this.value = this.getAttribute('originalValue');this.disabled = false; }return result;"
+    button_to name, options, html_options
+  end
+  
+  
 end
