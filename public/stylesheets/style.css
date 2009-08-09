@@ -253,3 +253,25 @@ div.inline-button form.button-to div {
 #footer p {
 	font-size: 10px;
 }
+
+.fap-data {
+	margin: 1em 1em 1em 2em; 
+	/*border:1px solid #ccc; */
+	font-size: 90%;
+}
+
+.fap-data p {
+	font-style: italic;
+	text-align: center;
+}
+.fap-data table {
+	border-collapse: collapse;
+	margin: auto;
+}
+.fap-data table th {
+	padding: 3px;
+	background-color: #ddd;
+}
+.fap-data table td {
+	padding: 3px;
+}
