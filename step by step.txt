@@ -78,4 +78,24 @@ cronjob
 	5  *  *  *  *  cd ~/hughes && rake husage:refreshAll RAILS_ENV=production
 	
 ==============================
+switch from sqlite to mysql
+
+	edit database.yml.online
+		eg
+			production:
+			  adapter: mysql
+			  database: parkerhi_husagepro
+			  username: parkerhi
+			  password: lyman114parker
+			
+	
+	create database in xpanel
+		eg husagepro
+		
+	modify deploy.rb setting
+
+	# rake db:create RAILS_ENV=production
+	# rake db:reset RAILS_ENV=production
+	# restart
+	
 	

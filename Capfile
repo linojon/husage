@@ -2,20 +2,13 @@ load 'deploy' if respond_to?(:namespace) # cap2 differentiator
 Dir['vendor/plugins/*/recipes/*.rb'].each { |plugin| load(plugin) }
 load 'config/deploy'
 
-# set this for target deploy
-# (When fcgi, Remember to edit environment.rb for 'production')
-DEPLOY_FOR = 'fcgi'
-#DEPLOY_FOR = 'mongrel'
-
-DATABASE = 'sqlite3'
-#DATABASE = 'mysql'
 
 # the following is ref: http://www.hostingrails.com/forums/wiki_thread/46
 
 # ========================
 # For FCGI Apps
 # ========================
-if DEPLOY_FOR == 'fcgi'
+if deploy_for == 'fcgi'
 
 namespace :deploy do
 
@@ -34,7 +27,7 @@ end
 #    For Mongrel Apps
 # ========================
 
-# if DEPLOY_FOR == 'mongrel'
+# if deploy_for == 'mongrel'
 # 
 # namespace :deploy do
 # 
@@ -92,7 +85,7 @@ end
 namespace :deploy do
 	task :make_online, :roles => :app do
 
-    if DEPLOY_FOR == 'fcgi'
+    if deploy_for == 'fcgi'
       # for cgi server only
       run "cd #{release_path}/public && cp -f dispatch.rb.online   dispatch.rb"
       run "cd #{release_path}/public && cp -f dispatch.cgi.online  dispatch.cgi"
@@ -108,7 +101,7 @@ namespace :deploy do
     run "cd #{release_path}/config/environments && cp -f test.rb.online test.rb"
     run "cd #{release_path}/config/environments && cp -f cucumber.rb.online cucumber.rb"
     
-    if DATABASE == 'sqlite3'
+    if database == 'sqlite3'
       # NOTE: or, can change this to a different shared dir if also set in database.yml
       run "cd #{release_path} && ln -s #{shared_path}/sqlite"
     end

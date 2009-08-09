@@ -18,3 +18,10 @@ role :web, domain
 role :app, domain
 role :db, domain, :primary => true
 
+# set this for target deploy
+# (When fcgi, Remember to edit environment.rb for 'production')
+set :deploy_for, 'fcgi'
+#set :deploy_for, 'mongrel'
+
+#set :database, 'sqlite3'
+set :database, 'mysql'

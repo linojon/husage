@@ -1,14 +1,14 @@
-# production:
-#   adapter: mysql
-#   database: parkerhi_husagepro
-#   username: parkerhi
-#   password: jonathan577
-
 production:
-  adapter: sqlite3
-  database: sqlite/production.sqlite3
-  pool: 5
-  timeout: 5000
+  adapter: mysql
+  database: parkerhi_husagepro
+  username: parkerhi
+  password: lyman114parker
+
+# production:
+#   adapter: sqlite3
+#   database: sqlite/production.sqlite3
+#   pool: 5
+#   timeout: 5000
 
 
 # SQLite version 3.x
