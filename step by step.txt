@@ -71,5 +71,11 @@ add request reset password
 				Notifier.deliver_password_reset_instructions(self)  
 			end  
 			
-			
+==============================
+cronjob
+	to run every hour at 5 minutes past
+	
+	5  *  *  *  *  cd ~/hughes && rake husage:refreshAll
+	
+==============================
 	
