@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   before_filter :require_user, :only => [:show, :edit, :update]
   
   def new
-    @user = User.new
+    @user = User.new( :time_zone => Usage::EASTERN)
   end
   
   def create

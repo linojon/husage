@@ -36,8 +36,10 @@
 		<%= f.text_field :alert_threshold, :size => 5, :class => 'level-alert' %> MB<br />
 		<br/>
 		<%= f.check_box :run_cron %> <%= f.label :run_cron, "Re-calculate hourly" %>
-		<%= form_help :run_hourly %>
-		
+		<%= form_help :run_hourly %><br />
+		<br/>	
+		<%= f.label :time_zone %><br/>
+		<%= f.time_zone_select :time_zone, ActiveSupport::TimeZone.us_zones %>
 	</fieldset>
 	<br/>
 	<fieldset>

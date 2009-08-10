@@ -15,6 +15,7 @@ namespace :husage do
       count = Usage.refresh( user.site )
       notify_usage user if user.send_emails
       Usage.delete_older_than user.site, 30
+      user.update_attributes( :last_run_at => Time.now )
       logger.info("#{user.site}: #{count} updated")
     end
     logger.info("#{Time.now} ================ end refeshAll ================")

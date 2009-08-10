@@ -1,7 +1,7 @@
 The download usage for HughesNet site <%= @user.site %> has exceeded your <%= (@usage.download_24hr >= @user.alert_threshold) ? "ALERT (#{@user.alert_threshold} MB)" : "WARNING (#{@user.warning_threshold} MB)" %> threshold. 
 
 	Downloads: <%= @usage.download_24hr %> MB
-	for 24 hour period ending: <%= @usage.period_from.strftime "%m/%d/%Y %H:59" %> (Eastern time) as reported by HughesNet
+	for 24 hour period ending: <%= @usage.period_from.strftime "%m/%d/%Y %H:59" %> (<%= @user.time_zone %>) as reported by HughesNet
 
 More details at http://www.husage.net
 

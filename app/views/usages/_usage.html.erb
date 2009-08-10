@@ -1,6 +1,7 @@
 <%# debugger %>
 <% css = case
-		when Usage::FREE_HOURS.include?( usage.period_from.hour): 'freetime' 
+		when usage.in_free_period? : 'freetime' 
+		when usage.fap == 'Yes' : 'fapped'
 		when usage.download_24hr >= current_user.alert_threshold : 'level-alert'
 		when usage.download_24hr >= current_user.warning_threshold : 'level-warning'
 		else '' 
@@ -8,7 +9,7 @@
 	%>
 <tr>
 	<td class="align-center <%= css %>"><%= usage.period_from.strftime "%m/%d/%Y" %></td>	
-	<td class="align-center <%= css %>"><%= usage.period_from.strftime "%H:00" %></td>	<%# was usage.period_from.time.strftime %>
+	<td class="align-center <%= css %>"><b><%= usage.period_from.strftime "%H:00" %></b></td>
 	<td class="align-center <%= css %>"><%= usage.period_from.strftime "%H:59" %></td> 
 	<td class="align-right <%= css %>"><%= usage.min_used %>&nbsp;&nbsp;&nbsp;&nbsp;</td>	
 	<td class="align-right <%= css %>"><b><%= usage.download %></b>&nbsp;&nbsp;&nbsp;&nbsp;</td>	

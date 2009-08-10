@@ -38,6 +38,7 @@ class UsagesController < ApplicationController
       flash[:notice] = "Updated #{pluralize count, 'item'}"
     end
     Usage.delete_older_than current_site, 30
+    current_user.update_attributes( :last_run_at => Time.now )
     redirect_to usages_path 
   end
 

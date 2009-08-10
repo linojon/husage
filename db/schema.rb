@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090808224204) do
+ActiveRecord::Schema.define(:version => 20090810143654) do
 
   create_table "usages", :force => true do |t|
     t.datetime "period_from"
@@ -40,6 +40,9 @@ ActiveRecord::Schema.define(:version => 20090808224204) do
     t.boolean  "send_emails"
     t.boolean  "run_cron"
     t.string   "perishable_token",  :default => "", :null => false
+    t.integer  "fap_threshold"
+    t.datetime "last_run_at"
+    t.string   "time_zone"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email"

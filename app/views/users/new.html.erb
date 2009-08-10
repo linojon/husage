@@ -31,5 +31,10 @@
 	<%= f.password_field :password_confirmation %>
 	<br />
 	<br/>
+	<%= f.label :time_zone %>
+	<br/>
+	<%= f.time_zone_select :time_zone, ActiveSupport::TimeZone.us_zones %>
+	<br />
+	<br/>	
 	<%= f.submit "Register" %>
 <% end %>

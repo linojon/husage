@@ -7,21 +7,20 @@ class ApplicationController < ActionController::Base
 
   # Scrub sensitive parameters from your log
   # filter_parameter_logging :password
-  
-  # def get_site_id
-  #   @site_id = params[:site_id]
-  #   @site_id ||= '3BC44601'
-  #   #@site_id ||= session[:site_id]
-  #   #redirect_to site_id_path if @site_id.nil?
-  # end
+
+  before_filter :set_user_time_zone
   
   helper_method :current_site
   
   # authlogic
   filter_parameter_logging :password, :password_confirmation
   helper_method :current_user_session, :current_user
-
+  
   private
+    def set_user_time_zone
+      Time.zone = current_user.time_zone if current_user
+    end
+  
     def current_user_session
       return @current_user_session if defined?(@current_user_session)
       @current_user_session = UserSession.find

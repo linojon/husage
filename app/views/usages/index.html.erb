@@ -1,10 +1,13 @@
 <div id="husage" class="mainText">
 	<!-- <img width"182" height="61" src="http://customercare.myhughesnet.com/images/hnet-logo.gif"/> -->
-	<%= button_with_disable_to "Re-calculate", refresh_path, :style => "float:right; padding:1em", :title => 'Load the latest act_usage report from HughesNet and re-calculate the totals' %>
-	
+	<div style="float:right; padding:1em">
+		<%= button_with_disable_to "Re-calculate", refresh_path, :title => 'Load the latest act_usage report from HughesNet and re-calculate the totals' %>
+		<p style="font-style:italic; font-size:80%">Last re-calc: <%= current_user.last_run_at.strftime "%m/%d/%Y %H:%M:%S" %></p>
+	</div>
+		
 	<p>Adapted from HughesNet act_usage report. Most recent items are on top. Downloads and 24 hour download totals are bold. Usage above thresholds are color coded. You can <%= link_to "change your preferences", preferences_path %>.</p>
 	
-	<div style="height: 23px; width: 100%; background-color:#10238C;">
+	<div style="height: 23px; width: 100%; background-color:#10238C; clear:both">
 		<img style="float:right" width="4" height="4" src="http://customercare.myhughesnet.com/images/mainnav_top_right_corner.gif"> 
 		<img width="4" height="4" src="http://customercare.myhughesnet.com/images/mainnav_top_left_corner.gif">
 	</div>
@@ -21,11 +24,12 @@
 				<div class="freetime">Free bandwidth</div>
 			</div>			
 			<p style="text-align:center; font-weight:bold">
-				Results for Site ID: &nbsp;&nbsp;3BC44601
+				Results for Site ID: &nbsp;&nbsp;<%= current_site.upcase %>
 			</p>
-			<p style="font-weight:bold">
-				Note:  The information on this page is listed in prevailing Eastern time only.  Usage statistics will only be shown for a Site ID if usage for a given hour is greater than 500KB, the site is subject to the Fair Access Policy or the reported time is between 2 AM ET and 7 AM ET.
+			<p>
+				Note:  Usage statistics will only be shown for a Site ID if usage for a given hour is greater than 500KB, the site is subject to the Fair Access Policy or the reported time is during free access periods.
 			</p>
+			<p style="font-style:italic">Times in <%= current_user.time_zone %></p>
 		
 			<table style="clear:both">
 				<thead>
@@ -37,7 +41,7 @@
 						<th>Download In MB</th>
 						<th>Subject To FAP*</td>
 						<th>Upload In MB</th>
-						<th>24 Hour Download</th>
+						<th>24 Hour MB Download</th>
 						<!-- <th>24 Hour Upload</th> -->
 					</tr>
 				</thead>

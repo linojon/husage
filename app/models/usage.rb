@@ -6,7 +6,16 @@ class Usage < ActiveRecord::Base
   validates_presence_of :site
   validates_uniqueness_of :period_from, :scope => :site
   
-  FREE_HOURS = (2...7)
+  EASTERN = "Eastern Time (US & Canada)"
+  FREE_HOURS = (2...7) #Eastern
+
+  # instance methods
+  
+  def in_free_period?
+    FREE_HOURS.include? period_from.in_time_zone(EASTERN).hour
+  end
+
+  # class methods
   
   def self.setup( site )
     report = fetch_hughes_report( site, lastmonth=true )
@@ -39,15 +48,18 @@ class Usage < ActiveRecord::Base
   def self.fetch_hughes_report( site, lastmonth=false )
     # themonth in the format "2009 07"
     if lastmonth
-      themonth = (Time.now - 1.month).strftime "%Y%%20%m"
+      themonth = (Time.now.in_time_zone(EASTERN) - 1.month).strftime "%Y%%20%m"
     else
-      themonth = Time.now.strftime "%Y%%20%m"
+      themonth = Time.now.in_time_zone(EASTERN).strftime "%Y%%20%m"
     end
     Nokogiri::HTML( open( "http://customercare.myhughesnet.com/act_usage.cfm?siteid=#{site}&themonth=#{themonth}" ))
     #Nokogiri::HTML( open("http://localhost:3003/testdata/act_usage1.html"))
   end
   
   def self.parse_and_save_usages( site, report ) 
+    # temporarily use eastern time, that's what the reports are
+    current_zone = Time.zone
+    Time.zone = EASTERN
     rows = report.xpath("//div[@class='mainText']/following::table/tr").to_a #need to explicitly convert to array
     rows[3..-4].each do |row|
       #debugger
@@ -58,24 +70,26 @@ class Usage < ActiveRecord::Base
         :download => download, :fap => fap, :upload => upload  )
       #puts usage.inspect
     end unless rows[3..-4].nil?
+    Time.zone = current_zone
   end
   
   # returns number of usages that had nil totals
   def self.calculate_24hour_totals( site )
     usages = Usage.all :conditions => { :site => site, :download_24hr => nil }
     # skip free periods (could do in find but for timezone?)
-    usages.delete_if {|usage| Usage::FREE_HOURS.include?( usage.period_from.hour) }
+    usages.delete_if {|usage| usage.in_free_period? }
     usages.each do |usage|
     #Array(usages.last).each do |usage|
       # set of past 24 hours
       past = Usage.all :conditions => ["period_from <= ? AND period_from > ?", usage.period_from, usage.period_from - 24.hours]
       # delete free hours
-      past.delete_if {|usage| FREE_HOURS.include? usage.period_from.hour }
+      past.delete_if {|usage| usage.in_free_period? }
       # calc total
       total = past.inject(0) {|sum, usage| sum + usage.download }
       usage.update_attributes :download_24hr => total
     end
     usages.size
   end
+  
   
 end
