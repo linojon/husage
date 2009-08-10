@@ -17,8 +17,8 @@ class User < ActiveRecord::Base
   #
   
   def before_validation
-    self.warning_threshold ||= 300
-    self.alert_threshold ||= 350
+    self.warning_threshold ||= 250
+    self.alert_threshold ||= 325
     self.send_emails ||= true
     self.send_emails = nil if email.blank?
     self.run_cron ||= true

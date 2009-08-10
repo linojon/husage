@@ -13,8 +13,7 @@ class Notifier < ActionMailer::Base
     level = (usage.download_24hr >= user.alert_threshold) ? "Alert" : "Warning"
     subject       "Husage #{level}: #{usage.download_24hr}MB"
     from          "Husage <husage.net@gmail.com>"
-    recipients    user.email 
-    recipients    += user.other_emails unless user.other_emails.blank? 
+    recipients    user.email + (user.other_emails.blank? ? '' : ', '+user.other_emails )
     sent_on       Time.zone.now
     body          :user => user, :usage => usage
   end

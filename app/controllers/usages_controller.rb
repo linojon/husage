@@ -25,6 +25,8 @@ class UsagesController < ApplicationController
     count = Usage.setup( current_site )
     if count == 0
       flash[:notice] = "Error creating report."
+    else
+      current_user.update_attributes( :last_run_at => Time.now )
     end
     redirect_to usages_path
   end
@@ -60,6 +62,6 @@ class UsagesController < ApplicationController
     most_recent = Usage.first :conditions => { :site => current_site }, :order => 'period_from DESC'
     # 24hr can be nil during free download periods
     Notifier.deliver_usage_message( current_user, most_recent ) if most_recent && most_recent.download_24hr && 
-                                                                        most_recent.download_24hr >= threshold
+                                                                  (most_recent.download_24hr >= threshold)
   end
 end

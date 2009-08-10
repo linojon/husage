@@ -66,7 +66,7 @@ class Usage < ActiveRecord::Base
       tds = row.xpath("td")
       date, time_from, time_to, min_used, download, fap, upload = tds.collect {|td| td.content.gsub("\302\240",'').strip }
       # puts [date, time_to, download].join(' | ')
-      usage = Usage.create( :site => site, :period_from => [date, time_from].join(' '), :min_used => min_used, 
+      usage = Usage.find_or_create( :site => site, :period_from => [date, time_from].join(' '), :min_used => min_used, 
         :download => download, :fap => fap, :upload => upload  )
       #puts usage.inspect
     end unless rows[3..-4].nil?
@@ -81,7 +81,8 @@ class Usage < ActiveRecord::Base
     usages.each do |usage|
     #Array(usages.last).each do |usage|
       # set of past 24 hours
-      past = Usage.all :conditions => ["period_from <= ? AND period_from > ?", usage.period_from, usage.period_from - 24.hours]
+      past = Usage.all :conditions => ["site = ? AND period_from <= ? AND period_from > ?", 
+                                        site, usage.period_from, (usage.period_from - 24.hours)]
       # delete free hours
       past.delete_if {|usage| usage.in_free_period? }
       # calc total

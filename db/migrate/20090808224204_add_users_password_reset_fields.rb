@@ -5,7 +5,7 @@ class AddUsersPasswordResetFields < ActiveRecord::Migration
     add_index :users, :perishable_token  
     add_index :users, :site
     
-    add_index :usages, :site
+    add_index :usages, [:site, :period_from]
   end
 
   def self.down
