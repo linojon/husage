@@ -50,6 +50,7 @@
 		<%= form_help :time_zone %>
 		<br/>
 		<%= f.time_zone_select :time_zone, ActiveSupport::TimeZone.us_zones %>
+		<div style="float:right; margin: 1em"><%= f.submit "Save changes" %></div>
 	</fieldset>
 	<br/>
 	<fieldset>
@@ -66,6 +67,7 @@
 		<br />
 		<%= f.check_box :send_emails %> <%= f.label :send_emails, "Send email notifications" %>
 		<%= form_help :send_emails %>
+		<div style="float:right; margin: 1em"><%= f.submit "Save changes" %></div>
 	</fieldset>
 	<br/>
 	<fieldset>
@@ -78,11 +80,10 @@
 		<%= f.label :password_confirmation %> <%= f.error_message_on :password_confirmation %>
 		<br />
 		<%= f.password_field :password_confirmation %>
+		<div style="float:right; margin: 1em"><%= f.submit "Save changes" %></div>
 	</fieldset>
+	<div style="float:right; margin: 1em"><%= link_to "Cancel changes", usages_path %></div>
 	<br/>
-	<span style = "font-size:150%"><%= f.submit "Save changes" %></span>
-	&nbsp; &nbsp;
-	<%= link_to "Cancel", usages_path %>
 	</div>
 <% end %>
 <br/>
