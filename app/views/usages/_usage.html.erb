@@ -12,9 +12,9 @@
 	<td class="align-center <%= css %>"><b><%= usage.period_from.strftime "%H:00" %></b></td>
 	<td class="align-center <%= css %>"><%= usage.period_from.strftime "%H:59" %></td> 
 	<td class="align-right <%= css %>"><%= usage.min_used %>&nbsp;&nbsp;&nbsp;&nbsp;</td>	
-	<td class="align-right <%= css %>"><b><%= usage.download %></b>&nbsp;&nbsp;&nbsp;&nbsp;</td>	
+	<td class="align-right <%= css %>"><b><%= number_with_precision usage.download, :precision => 2 %></b>&nbsp;&nbsp;&nbsp;&nbsp;</td>
 	<td class="align-center <%= css %>"><%= usage.fap %></td>
-	<td class="align-right <%= css %>"><%= usage.upload %>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+	<td class="align-right <%= css %>"><%= number_with_precision usage.upload, :precision => 2 %>&nbsp;&nbsp;&nbsp;&nbsp;</td>
 	<td class="align-right <%= css %>"><b><%= usage.download_24hr %></b>&nbsp;&nbsp;&nbsp;&nbsp;</td>	
 	<!-- <td class="align-right <%= css %>">&nbsp;&nbsp;&nbsp;&nbsp;</td>	 -->
 </tr>							

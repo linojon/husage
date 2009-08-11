@@ -2,7 +2,7 @@
 
 <p>To use the Husage utility you must register. Just enter your HughesNet site ID, a valid email address, and choose a password.</p> 
 
-<p>We need your email address to send you a message if your usage exceeds certain levels. We respect your privacy and will never share your email address or send unsolicited emails.</p>
+<p>We need your email address to send you a message if your usage exceeds certain levels. <strong>We respect your privacy and will never share your email address or send unsolicited emails.</strong></p>
 
 <p>Note, this site is NOT AFFILIATED WITH HughesNet. Your registration here is not affiliated with other HughesNet accounts you might have. Please choose a unique password.</p> 
  
@@ -12,6 +12,12 @@
 	<%= form_help :site_ID %>
 	<br />
 	<%= f.text_field :site %>
+	<br />
+	<br />
+	<%= f.label :hn_plan, "Your HughesNet Plan (FAP)" %>
+	<%= form_help :hn_plan %>
+	<br />
+	<%= f.select :hn_plan, @hn_plan_choices %>
 	<br />
 	<br />
 	<%= f.label :email %> <%= f.error_message_on :email %>
@@ -32,6 +38,7 @@
 	<br />
 	<br/>
 	<%= f.label :time_zone %>
+	<%= form_help :time_zone %>
 	<br/>
 	<%= f.time_zone_select :time_zone, ActiveSupport::TimeZone.us_zones %>
 	<br />

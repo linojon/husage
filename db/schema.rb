@@ -14,9 +14,9 @@ ActiveRecord::Schema.define(:version => 20090810143654) do
   create_table "usages", :force => true do |t|
     t.datetime "period_from"
     t.integer  "min_used"
-    t.float    "download"
+    t.decimal  "download"
     t.string   "fap"
-    t.float    "upload"
+    t.decimal  "upload"
     t.integer  "download_24hr"
     t.integer  "upload_24hr"
     t.datetime "created_at"
@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(:version => 20090810143654) do
     t.string   "site"
   end
 
-  add_index "usages", ["site"], :name => "index_usages_on_site"
+  add_index "usages", ["site", "period_from"], :name => "index_usages_on_site_and_period_from"
 
   create_table "users", :force => true do |t|
     t.string   "site",                              :null => false
@@ -45,7 +45,6 @@ ActiveRecord::Schema.define(:version => 20090810143654) do
     t.string   "time_zone"
   end
 
-  add_index "users", ["email"], :name => "index_users_on_email"
   add_index "users", ["perishable_token"], :name => "index_users_on_perishable_token"
   add_index "users", ["site"], :name => "index_users_on_site"
 

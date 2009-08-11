@@ -66,9 +66,11 @@ class Usage < ActiveRecord::Base
       tds = row.xpath("td")
       date, time_from, time_to, min_used, download, fap, upload = tds.collect {|td| td.content.gsub("\302\240",'').strip }
       # puts [date, time_to, download].join(' | ')
-      usage = Usage.find_or_create( :site => site, :period_from => [date, time_from].join(' '), :min_used => min_used, 
-        :download => download, :fap => fap, :upload => upload  )
-      #puts usage.inspect
+      period_from = [date, time_from].join(' ')
+      unless Usage.first( :conditions => { :site => site, :period_from => period_from } )
+        usage = Usage.create( :site => site, :period_from => period_from, :min_used => min_used, 
+          :download => download, :fap => fap, :upload => upload  )
+      end
     end unless rows[3..-4].nil?
     Time.zone = current_zone
   end

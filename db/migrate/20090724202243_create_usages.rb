@@ -3,9 +3,9 @@ class CreateUsages < ActiveRecord::Migration
     create_table :usages do |t|
       t.datetime :period_from
       t.integer :min_used
-      t.float :download
+      t.decimal :download, :scale => 2
       t.string :fap
-      t.float :upload
+      t.decimal :upload, :scale => 2
       t.integer :download_24hr
       t.integer :upload_24hr
 

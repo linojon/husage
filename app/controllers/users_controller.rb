@@ -3,6 +3,7 @@ class UsersController < ApplicationController
   before_filter :require_user, :only => [:show, :edit, :update]
   
   def new
+  	@hn_plan_choices = ['']+User::HN_PLAN_NAMES.collect {|plan| ["#{plan} (#{User::HN_PLANS[plan][:fap]}MB)", plan]}
     @user = User.new( :time_zone => Usage::EASTERN)
   end
   

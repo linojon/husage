@@ -16,13 +16,21 @@
 	<fieldset>
 		<legend>Usage Settings</legend>
 				<p>Choose Warning and Alert thresholds based on your service plan.
-					 For example, if your FAP is at 375MB you may want to
-					receive alerts at 250 and 325</p>
+					 For example, if your FAP threshold is <%= User::HN_PLANS['Pro'][:fap] %>MB you may want to
+					set warning and alerts at <%= User::HN_PLANS['Pro'][:warn] %> and <%= User::HN_PLANS['Pro'][:alert] %>, respectively.</p>
 			<div class="fap-data">
-				<p>FAP Thresholds based on service plan (as of Aug 1, 2009)</p>
+				<p>FAP Thresholds based on <%= link_to "service plan", "http://www.hughes.com/HUGHES/rooms/displaypages/layoutinitial?pageid=fairaccess" %> (as of Aug 1, 2009)</p>
 				<table border="1">
-					<tr><th>Home</th><th>Pro</th><th>Pro Plus</th><th>Sm Office</th><th>Business</th></tr>
-					<tr><td>200 MB</td><td>375 MB</td><td>425 MB</td><td>500 MB</td><td>1250 MB</td></tr>
+					<tr>
+						<% User::HN_PLAN_NAMES.each do |plan| %>
+							<th><%= plan %></th>
+						<% end %>
+					</tr>
+					<tr>
+						<% User::HN_PLAN_NAMES.each do |plan| %>
+							<td><%= User::HN_PLANS[plan][:fap] %> MB</td>
+						<% end %>
+					</tr>
 				</table>
 			</div>
 		<%= f.label :warning_threshold %> <%= f.error_message_on :warning_threshold %>
@@ -38,7 +46,9 @@
 		<%= f.check_box :run_cron %> <%= f.label :run_cron, "Re-calculate hourly" %>
 		<%= form_help :run_hourly %><br />
 		<br/>	
-		<%= f.label :time_zone %><br/>
+		<%= f.label :time_zone %>
+		<%= form_help :time_zone %>
+		<br/>
 		<%= f.time_zone_select :time_zone, ActiveSupport::TimeZone.us_zones %>
 	</fieldset>
 	<br/>
@@ -70,9 +80,9 @@
 		<%= f.password_field :password_confirmation %>
 	</fieldset>
 	<br/>
-	<%= f.submit "Update" %>
+	<span style = "font-size:150%"><%= f.submit "Save changes" %></span>
 	&nbsp; &nbsp;
-	<%= link_to "Cancel changes", usages_path %>
+	<%= link_to "Cancel", usages_path %>
 	</div>
 <% end %>
 <br/>

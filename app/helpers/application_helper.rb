@@ -18,6 +18,7 @@ module ApplicationHelper
   end
   
   HELP_TOPICS = {
+    :hn_plan => 'If you tell us your HughesNet service plan (and Fair Access Policy threshold) we can initialize the Warning and Alert thresholds. Of course, you can change these settings in your Preferences. Leave blank and levels are set to minimum values',
     :site_ID => 'Your HughesNet Site ID can be found, for example, on the System Info page of your modem System Control Center',
     :site_id_not_editable => 'The Site ID cannot be changed once the Husage reports have been initialized. To change you must delete this Husage report and register a new one',
     :warning_threshold => 'Number of megabytes (MB) which signals a Warning for high internet usage downloads. For example, a value of 250 or 300 may be reasonable if your HughesNet FAP maximum is 400 MB',
@@ -27,10 +28,10 @@ module ApplicationHelper
     :other_emails => 'Additional email addresses where warning and alert message will be sent. Put emails on separate lines or separate with commas',
     :send_emails => 'If checked, email warning and alert messages will be sent to the primary and other email addresses when the reports are re-calculated',
     :password => 'Choosing a secret password lets you log in to get your Husage reports. Note, your registration and password here is not affiliated with other HughesNet accounts you might have.',
+    :time_zone => 'Times in the reports will be converted to your local time zone',
     :delete_site => 'Delete this log-in and all reports for the HughesNet Site ID. (Does not affect your HughesNet account in any way)'
   }
   
-    
   def button_with_disable_to( name, options={}, html_options={} )
     # adapted from #submit_tag (File rails-2.3.2/actionpack/lib/action_view/helpers/form_tag_helper.rb, line 348)
     html_options.stringify_keys!
