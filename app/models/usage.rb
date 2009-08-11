@@ -18,19 +18,22 @@ class Usage < ActiveRecord::Base
   # class methods
   
   def self.setup( site )
+    #debugger
     report = fetch_hughes_report( site, lastmonth=true )
     usages = parse_usages site, report
     report = fetch_hughes_report( site )
-    usages << parse_usages( site, report)
+    usages += parse_usages( site, report)
     save_usages usages
     count = calculate_24hour_totals site
     delete_older_than site, 30
+    count
   end
   
   def self.refresh( site )
     #debugger
     report = fetch_hughes_report( site )
     usages = parse_usages site, report
+    return -1 if usages.nil?
     save_usages usages
     count = calculate_24hour_totals site
   end

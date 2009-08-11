@@ -13,10 +13,17 @@ namespace :husage do
     users = User.all :conditions => ["run_cron = ?", true]
     users.each do |user|
       count = Usage.refresh( user.site )
-      notify_usage user if user.send_emails
-      Usage.delete_older_than user.site, 30
-      user.update_attributes( :last_run_at => Time.now )
-      logger.info("#{user.site}: #{count} updated")
+      if count==-1
+        logger.info("#{user.site}: BAD REPORT")
+      elsif count==0
+        user.update_attributes( :last_run_at => Time.now )
+        logger.info("#{user.site}: #{count} updated")        
+      else
+        notify_usage user if user.send_emails
+        Usage.delete_older_than user.site, 30
+        user.update_attributes( :last_run_at => Time.now )
+        logger.info("#{user.site}: #{count} updated")
+      end
     end
     logger.info("#{Time.now} ================ end refeshAll ================")
   end

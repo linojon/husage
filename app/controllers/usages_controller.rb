@@ -23,8 +23,8 @@ class UsagesController < ApplicationController
   
   def setup_create
     count = Usage.setup( current_site )
-    if count == 0
-      flash[:notice] = "Error creating report."
+    if count <= 0
+      flash[:notice] = "Error creating report.<br/>(Perhaps #{current_site} is not a valid HughesNet Site ID?)"
     else
       current_user.update_attributes( :last_run_at => Time.now )
     end
@@ -34,13 +34,16 @@ class UsagesController < ApplicationController
   def refresh
     count = Usage.refresh( current_site )
     notify_usage current_user.warning_threshold if current_user.send_emails
-    if count == 0
+    if count < 0
+      flash[:notice] = "Error creating report.<br/>(Perhaps #{current_site} is not a valid HughesNet Site ID?)"
+    elsif count == 0
+      current_user.update_attributes( :last_run_at => Time.now )
       flash[:notice] = 'No new updates'
     else
+      Usage.delete_older_than current_site, 30
+      current_user.update_attributes( :last_run_at => Time.now )
       flash[:notice] = "Updated #{pluralize count, 'item'}"
     end
-    Usage.delete_older_than current_site, 30
-    current_user.update_attributes( :last_run_at => Time.now )
     redirect_to usages_path 
   end
 
