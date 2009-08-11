@@ -19,9 +19,10 @@ class Usage < ActiveRecord::Base
   
   def self.setup( site )
     report = fetch_hughes_report( site, lastmonth=true )
-    parse_and_save_usages site, report
+    usages = parse_usages site, report
     report = fetch_hughes_report( site )
-    parse_and_save_usages site, report
+    usages << parse_usages( site, report)
+    save_usages usages
     count = calculate_24hour_totals site
     delete_older_than site, 30
   end
@@ -29,7 +30,8 @@ class Usage < ActiveRecord::Base
   def self.refresh( site )
     #debugger
     report = fetch_hughes_report( site )
-    parse_and_save_usages site, report
+    usages = parse_usages site, report
+    save_usages usages
     count = calculate_24hour_totals site
   end
 
@@ -56,23 +58,31 @@ class Usage < ActiveRecord::Base
     #Nokogiri::HTML( open("http://localhost:3003/testdata/act_usage1.html"))
   end
   
-  def self.parse_and_save_usages( site, report ) 
+  def self.parse_usages( site, report ) 
     # temporarily use eastern time, that's what the reports are
     current_zone = Time.zone
     Time.zone = EASTERN
     rows = report.xpath("//div[@class='mainText']/following::table/tr").to_a #need to explicitly convert to array
+    usages = []
     rows[3..-4].each do |row|
       #debugger
       tds = row.xpath("td")
       date, time_from, time_to, min_used, download, fap, upload = tds.collect {|td| td.content.gsub("\302\240",'').strip }
       # puts [date, time_to, download].join(' | ')
       period_from = [date, time_from].join(' ')
-      unless Usage.first( :conditions => { :site => site, :period_from => period_from } )
-        usage = Usage.create( :site => site, :period_from => period_from, :min_used => min_used, 
-          :download => download, :fap => fap, :upload => upload  )
-      end
+      usages << Usage.new( :site => site, :period_from => period_from, :min_used => min_used, 
+        :download => download, :fap => fap, :upload => upload  )
     end unless rows[3..-4].nil?
     Time.zone = current_zone
+    usages
+  end
+
+  def self.save_usages( usages ) 
+    usages.each do |usage|
+      unless Usage.first( :conditions => { :site => usage.site, :period_from => usage.period_from } )
+        usage.save
+      end
+    end
   end
   
   # returns number of usages that had nil totals

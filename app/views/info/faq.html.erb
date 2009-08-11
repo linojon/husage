@@ -1,0 +1,45 @@
+<h1>Frequently Asked Questions</h1>
+
+<h3>What is FAP?</h3>
+<p>Subscribers to the HughesNet satellite internet service are subject to a "Fair Access Policy", which sets a maximum threshold of downloads (in megabytes) permitted in any 24 hour period. Your FAP threshold depends on the level of service you are subscribed. If you exceed the FAP threshold, your internet service slows down to a crawl, a very frustrating situation. You can <a href="http://www.hughes.com/HUGHES/rooms/displaypages/layoutinitial?pageid=fairaccess">read more</a> on the HughesNet site.</p>
+
+<h3>What is "Husage"?</h3>
+<p>I wrote this little tool to help my family manage our downloads and help avoid getting "FAP-ed". Basically it starts with the HughesNet usage reports and makes them better! including</p>
+
+<ul>
+	<li>A column for Total Accumulated Downloads from the previous 24 hours (minus the free bandwidth hours)</li>
+	<li>Color coding of periods that exceed given Warning and Alert levels</li>
+	<li>Email alerts when usage exceeds the given Warning and Alert levels</li>
+	<li>Personal preferences to set Warning and Alert levels, email addresses, time zone, etc</li>
+</ul>
+
+<h3>Is Husage a service of HughesNet?</h3>
+<p>No. Husage is independent of HughesNet and not supported nor endorsed by HughesNet.</p>
+
+<h3>What does Husage cost to use?</h3>
+<p>This service is provided free of charge (because we're nice)</p>
+
+<h3>Do you have access to and read my HughesNet account?</h3>
+<p>No, we do not (and cannot) directly access your HughesNet account. We read publicly available usage reports from http://customercare.myhughesnet.com and reformat them to make them more useful.</p>
+
+<h3>Are your reports more up-to-date than the HughesNet ones?</h3>
+<p>No. We read publicly available usage reports from http://customercare.myhughesnet.com and reformat them. Those reports are 1 to 2 hours behind. I don't know why, that's just the way it is.</p>
+
+<h3>I've heard of an FAP monitor called hnFAPmon. Does Husage replace that?</h3>
+<p>No. hnFAPmon is different and Husage does not replace it. hnFAPmon is a piece of open-source software you install in your HughesNet modem to monitor internet downloads. Its data is more up-to-date than Husage, but also has some drawbacks: it requires technical skills to install, it adds unauthorized code into your modem, and it generates its own data. On the other hand, Husage is very easy to use, you can run reports away from your network, and it uses HughesNet's own reports. Husage also has other features like email notifications. Husage can be used together with, or instead of, hnFAPmon depending on your ability and needs.</p>
+
+<!-- <h3>Why don't you have a column showing how many megabytes I have left before FAP kicks in?</h3>
+<p>We considered this but there's some issues. First, since our reports are delayed (based on the HughesNet usage reports) that'd be a little dangerous to assume the current usage. </p> -->
+	
+<h3>Why do you need my Site ID, email address, password, and service plan when I sign up?</h3>
+<ul>
+<li>We need your site ID so we can pull up your usage reports from customercare.myhughesnet.com.</li> 
+<li>We need your email address so we can send you a notification if your usage exceeds the warning level. </li>
+<li>You use a password to log in, so that unauthorized people won't mess with your Preferences settings (you're creating a new password; dont give us your HughesNet accounts password!).</li> 
+<li>Your service plan info is optional and is only used to initialize reasonable values for the Warning and Alert thresholds in your reports; this is optional, you do not need to tell us anything else about your HughesNet account.</li>
+</ul>
+
+<h3>How do I turn off the email notifications?</h3>
+<p>You can disabled email notifications by un-checking the "Send email notifications" check box in the Preferences page. Or, you can "un-sign-up" by deleting the Husage report for your Site ID, clicking the "Delete this report" in the Preferences page.
+	
+	

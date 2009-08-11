@@ -14,9 +14,9 @@ ActiveRecord::Schema.define(:version => 20090810143654) do
   create_table "usages", :force => true do |t|
     t.datetime "period_from"
     t.integer  "min_used"
-    t.decimal  "download"
+    t.float    "download"
     t.string   "fap"
-    t.decimal  "upload"
+    t.float    "upload"
     t.integer  "download_24hr"
     t.integer  "upload_24hr"
     t.datetime "created_at"
