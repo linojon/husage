@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   before_filter :require_user, :only => [:show, :edit, :update]
   
   def new
-  	@hn_plan_choices = ['']+User::HN_PLAN_NAMES.collect {|plan| ["#{plan} (#{User::HN_PLANS[plan][:fap]}MB)", plan]}
+    set_form_options
     @user = User.new( :time_zone => Usage::EASTERN)
   end
   
@@ -17,6 +17,7 @@ class UsersController < ApplicationController
       Notifier.deliver_admin_message "Created new user/site", @user
       redirect_to usages_url
     else
+      set_form_options
       render :action => :new
     end
   end
@@ -49,5 +50,11 @@ class UsersController < ApplicationController
     Notifier.deliver_admin_message "Deleted user/site", user
     redirect_to login_url
   end
+  
+  protected
+  
+  def set_form_options
+    @hn_plan_choices = ['']+User::HN_PLAN_NAMES.collect {|plan| ["#{plan} (#{User::HN_PLANS[plan][:fap]}MB)", plan]}
+	end
   
 end
