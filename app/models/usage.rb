@@ -33,7 +33,7 @@ class Usage < ActiveRecord::Base
     #debugger
     report = fetch_hughes_report( site )
     usages = parse_usages site, report
-    return -1 if usages.nil?
+    return -1 if usages.blank?
     save_usages usages
     count = calculate_24hour_totals site
   end
