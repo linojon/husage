@@ -245,6 +245,13 @@ div.inline-button form.button-to div {
 
 /* --------------------- */
 
+#users td {
+	padding-left: 1em;
+	padding-right: 1em;
+}
+
+/* --------------------- */
+
 #footer {
 	margin: 2em;
 	font-size: 12px;

@@ -1,8 +1,15 @@
 <div id="mainmenu">
 	<ul>
-	<li><%= link_to_tag_unless_current "Usage Report", usages_path %></li>
-	<li><%= link_to_tag_unless_current "Original Report", original_path %></li>
-	<li><%= link_to_tag_unless_current "Preferences", preferences_path %></li>
+	<% if is_admin? %>
+		<li><%= link_to_tag_unless_current "Users", users_path %></li>
+		<li><%= link_to_tag_unless_current "Usage Report", usages_path(:site => current_site) %></li>
+		<li><%= link_to_tag_unless_current "Original Report", original_path(:site => current_site) %></li>
+		<li><%= link_to_tag_unless_current "Preferences", preferences_path(:site => current_site) %></li>
+	<% else%>
+		<li><%= link_to_tag_unless_current "Usage Report", usages_path %></li>
+		<li><%= link_to_tag_unless_current "Original Report", original_path %></li>
+		<li><%= link_to_tag_unless_current "Preferences", preferences_path %></li>
+	<% end %>
 	<li><%= link_to_tag_unless_current "Log out", logout_path, :span, :style => 'font-size:10px; float:right' %></li>
 	</ul>
 </div>

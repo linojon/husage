@@ -14,12 +14,6 @@
 	<%= f.text_field :site %>
 	<br />
 	<br />
-	<%= f.label :hn_plan, "Your HughesNet Plan (FAP)" %>
-	<%= form_help :hn_plan %>
-	<br />
-	<%= f.select :hn_plan, @hn_plan_choices %>
-	<br />
-	<br />
 	<%= f.label :email %> <%= f.error_message_on :email %>
 	<%= form_help :email %>
 	<br />
@@ -41,6 +35,12 @@
 	<%= form_help :time_zone %>
 	<br/>
 	<%= f.time_zone_select :time_zone, ActiveSupport::TimeZone.us_zones %>
+	<br />
+	<br />
+	<%= f.label :hn_plan, "Your HughesNet Plan (FAP)" %> <span style="font-size:80%; font-style:italic">optional</span>
+	<%= form_help :hn_plan %>
+	<br />
+	<%= f.select :hn_plan, @hn_plan_choices %>
 	<br />
 	<br/>	
 	<%= f.submit "Register" %>

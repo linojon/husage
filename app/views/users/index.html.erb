@@ -1,0 +1,31 @@
+<h1>Show Users</h1>
+<div id="users" class="mainText">
+<table>
+	<tr>
+		<th>Site ID</th>
+		<th>Email</th>
+		<th>Created</th>
+		<th>Time zone</th>
+		<th>Warning</th>
+		<th>Alert</th>
+		<th>Actions</th>
+	</tr>
+	<% @users.each do |user| %>
+		<tr>
+			<td><%= user.site.upcase %></td>
+			<td><%= user.email %></td>
+			<td><%= user.created_at %></td>
+			<td><%= user.time_zone %></td>
+			<td><%= user.warning_threshold %></td>
+			<td><%= user.alert_threshold %></td>
+			<td>
+				<%= link_to 'usages', usages_path( :site => user.site) %>
+				&nbsp;
+				<%= link_to 'preferences', preferences_path(:site => user.site) %>
+				&nbsp;
+				<%= link_to 'delete', user_path(user), :confirm => 'Delete user account?', :method => :delete %>
+			</td>
+		</tr>
+	<% end %>
+</table>
+</div>

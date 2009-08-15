@@ -7,10 +7,11 @@ class UsagesController < ApplicationController
   # GET /usages
   # GET /usages.xml
   def index
-    # debugger
+    #debugger
     return( redirect_to new_user_session_url) unless current_user #redirect without flash
+    @report_user = is_admin? ? User.find_by_site( params[:site] ) : current_user
     @usages = Usage.all :conditions => { :site => current_site }, :order => "period_from DESC"
-    return( redirect_to setup_path) if @usages.empty?
+    return( redirect_to setup_path(:site => current_site)) if @usages.empty?
     
     respond_to do |format|
       format.html # index.html.erb

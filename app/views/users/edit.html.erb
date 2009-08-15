@@ -1,9 +1,11 @@
+<% unless is_admin? %>
 <div style="float:right; margin-right:20px" class="inline-button">
 	<%= button_to "Delete This Report", { :action => "delete" }, :confirm => "Deleting this Husage report and login. Are you sure?", :method => :delete %> 	
 	<%= form_help :delete_site %>
 </div>
+<% end %>
 
-<% form_for @user, :url => account_path do |f| %>
+<% form_for @user, :url => user_path(@user) do |f| %><%# was :url => account_path but changed for admin %>
 	<div style="font-size:80%">
   <%= f.error_messages :header_message => 'Please try again!' %>
 

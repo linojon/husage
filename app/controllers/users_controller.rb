@@ -1,6 +1,11 @@
 class UsersController < ApplicationController
+  before_filter :require_admin, :only => [:index]
   before_filter :require_no_user, :only => [:new, :create]
-  before_filter :require_user, :only => [:show, :edit, :update]
+  before_filter :require_user, :only => [:edit, :update]
+  
+  def index
+    @users = User.all
+  end
   
   def new
     set_form_options
@@ -27,15 +32,23 @@ class UsersController < ApplicationController
   # end
  
   def edit
-    @user = current_user
+    # note: not rest
+    @user = is_admin? ? User.find_by_site( params[:site] ) : current_user
+    #@user = current_user
   end
   
   def update
     #debugger
-    @user = current_user
+    # note: restful
+    @user = is_admin? ? User.find( params[:id] ) : current_user
+    #@user = current_user
     if @user.update_attributes(params[:user])
       flash[:notice] = "Preferences updated."
-      redirect_to usages_url
+      if is_admin?
+        redirect_to usages_url(:site => @user.site )
+      else
+        redirect_to usages_url
+      end
     else
       render :action => :edit
     end

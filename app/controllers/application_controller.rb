@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
 
   before_filter :set_user_time_zone
   
-  helper_method :current_site
+  helper_method :current_site, :is_admin?
   
   # authlogic
   filter_parameter_logging :password, :password_confirmation
@@ -59,6 +59,24 @@ class ApplicationController < ActionController::Base
     end
     
     def current_site
-      current_user.site if current_user
+      if is_admin? && params[:site]
+        params[:site] 
+      elsif current_user
+        current_user.site
+      end
+    end
+    
+    # note: to bootstrap a new app need to create user with site id "admin"
+    
+    def is_admin?
+      current_user && current_user.site=='admin'
+    end
+    
+    def require_admin
+      unless is_admin?
+        flash[:notice] = "Access denied"
+        redirect_to usages_url
+        return false
+      end
     end
 end
