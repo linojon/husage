@@ -52,12 +52,17 @@ class Usage < ActiveRecord::Base
   
   def self.fetch_hughes_report( site, lastmonth=false )
     # themonth in the format "2009 07"
-    if lastmonth
-      themonth = (Time.now.in_time_zone(EASTERN) - 1.month).strftime "%Y%%20%m"
+    if site.upcase.starts_with? 'DSS'
+      month = lastmonth ? 'previous' : 'this'
+      Nokogiri::HTML( open( "http://customercare.myhughesnet.com/frm_usage_9series.cfm?siteID=#{site}&month=#{month}" ))
     else
-      themonth = Time.now.in_time_zone(EASTERN).strftime "%Y%%20%m"
+      if lastmonth
+        themonth = (Time.now.in_time_zone(EASTERN) - 1.month).strftime "%Y%%20%m"
+      else
+        themonth = Time.now.in_time_zone(EASTERN).strftime "%Y%%20%m"
+      end
+      Nokogiri::HTML( open( "http://customercare.myhughesnet.com/act_usage.cfm?siteid=#{site}&themonth=#{themonth}" ))
     end
-    Nokogiri::HTML( open( "http://customercare.myhughesnet.com/act_usage.cfm?siteid=#{site}&themonth=#{themonth}" ))
     #Nokogiri::HTML( open("http://localhost:3003/testdata/act_usage1.html"))
   end
   
