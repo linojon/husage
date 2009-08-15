@@ -1,3 +1,13 @@
+<div style="font-size:10px; margin-left: 1em; float:right">
+	<div style="text-align:center">
+		<p>
+	<em>Example report (click to enlarge)</em>
+		</p>
+	<%= link_to image_tag('husage_report_thumbnail.jpg'), '/images/husage_report.jpg', :title => 'Click to enlarge' %>
+	<br/>
+	</div>
+</div>
+
 <h3 style="text-align:center">"Husage" is a better HughesNet Usage Report! </h3>
 <p>
 	This free service for HughesNet users provides reports of your download usage over 24 hour periods, 
@@ -7,7 +17,7 @@
 	Note, this site is NOT AFFILIATED WITH HughesNet. Your registration here is not affiliated with other HughesNet accounts you might have.
 </p>
 
-<table><tr style="vertical-align:top"><td style="width:50%">
+<table style="clear:both"><tr style="vertical-align:top"><td style="width:50%">
 <h1>Log-in</h1>
 <% form_for @user_session, :url => user_session_path do |f| %>
   <%= f.error_messages :header_message => 'Please try again!' %>
@@ -36,13 +46,4 @@
 <p>To use this Husage utility you need be registered. 
 	<%= button_to "Register Now", new_user_path %>
 </p>
-<div style="font-size:10px; margin-top:20px">
-	<div>
-		<p>
-	<em>Example report (click to enlarge)</em>
-		</p>
-	<%= link_to image_tag('husage_report_thumbnail.jpg'), '/images/husage_report.jpg', :title => 'Click to enlarge' %>
-	<br/>
-	</div>
-</div>
 </td></tr></table>
