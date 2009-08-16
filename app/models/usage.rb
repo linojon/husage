@@ -62,7 +62,7 @@ class Usage < ActiveRecord::Base
     # themonth in the format "2009 07"
     if site.upcase.starts_with? 'DSS'
       month = lastmonth ? 'previous' : 'this'
-      Nokogiri::HTML( open( "http://customercare.myhughesnet.com/frm_usage_9series.cfm?siteID=#{site}&month=#{month}" ))
+      Nokogiri::HTML( open( "http://www.myhughesnet.com/ViewUsage/ViewUsageServlet.servlet?siteID=#{site}&month=#{month}" ))
     else
       if lastmonth
         themonth = (Time.now.in_time_zone(EASTERN) - 1.month).strftime "%Y%%20%m"
@@ -78,7 +78,11 @@ class Usage < ActiveRecord::Base
     # temporarily use eastern time, that's what the reports are
     current_zone = Time.zone
     Time.zone = EASTERN
-    rows = report.xpath("//div[@class='mainText']/following::table/tr").to_a #need to explicitly convert to array
+    if site.upcase.starts_with? 'DSS'
+      rows = report.xpath("//h2/../following::table/tr").to_a
+    else
+      rows = report.xpath("//div[@class='mainText']/following::table/tr").to_a #need to explicitly convert to array
+    end
     usages = []
     rows[3..-4].each do |row|
       #debugger
