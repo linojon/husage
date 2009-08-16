@@ -5,7 +5,7 @@
 		<p style="font-style:italic; font-size:80%">Last re-calc: <%= @report_user.last_run_at.strftime "%m/%d/%Y %H:%M:%S" %></p>
 	</div>
 		
-	<p>Adapted from HughesNet act_usage report. Most recent items are on top. Downloads and 24 hour download totals are bold. Usage above thresholds are color coded. You can <%= link_to "change your preferences", preferences_path %>.</p>
+	<p>Adapted from HughesNet <%= Usage.hughes_report_name current_site %> report. Most recent items are on top. Downloads and 24 hour download totals are bold. Usage above thresholds are color coded. You can <%= link_to "change your preferences", preferences_path %>.</p>
 	
 	<div style="height: 23px; width: 100%; background-color:#10238C; clear:both">
 		<img style="float:right" width="4" height="4" src="http://customercare.myhughesnet.com/images/mainnav_top_right_corner.gif"> 

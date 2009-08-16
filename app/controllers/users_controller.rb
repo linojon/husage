@@ -55,13 +55,17 @@ class UsersController < ApplicationController
   end
   
   def destroy
-    site = current_site
-    user = current_user
-    current_user_session.destroy
+    user = is_admin? ? User.find( params[:id] ) : current_user
+    site = user.site
+    current_user_session.destroy unless is_admin?
     user.destroy
     flash[:notice] = "Husage reports and login deleted for #{site}"
     Notifier.deliver_admin_message "Deleted user/site", user
-    redirect_to login_url
+    if is_admin?
+      redirect_to users_path
+    else
+      redirect_to login_url
+    end
   end
   
   protected

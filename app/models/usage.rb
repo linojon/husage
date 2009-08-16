@@ -50,6 +50,14 @@ class Usage < ActiveRecord::Base
   
   protected
   
+  def self.hughes_report_name( site )
+    if site.upcase.starts_with? 'DSS'
+      'frm_usage_9series'
+    else
+      'act_usage'
+    end
+  end
+  
   def self.fetch_hughes_report( site, lastmonth=false )
     # themonth in the format "2009 07"
     if site.upcase.starts_with? 'DSS'

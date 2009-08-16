@@ -23,7 +23,7 @@
 				&nbsp;
 				<%= link_to 'preferences', preferences_path(:site => user.site) %>
 				&nbsp;
-				<%= link_to 'delete', user_path(user), :confirm => 'Delete user account?', :method => :delete %>
+				<%= link_to 'delete', user_path(user), :confirm => "Delete account for #{user.site.upcase}?", :method => :delete %>
 			</td>
 		</tr>
 	<% end %>
