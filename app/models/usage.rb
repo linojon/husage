@@ -64,7 +64,7 @@ class Usage < ActiveRecord::Base
       Nokogiri::HTML( open( "http://localhost:3003/testdata/#{site}.html" )) #run a separate server for this get ??!!!
       #Nokogiri::HTML( open( "#{RAILS_ROOT}/public/testdata/#{site}.html" ))
 
-    elsif is_9series?
+    elsif site.starts_with? 'DSS' #is_9series?
       month = lastmonth ? 'previous' : 'this'
       Nokogiri::HTML( open( "http://www.myhughesnet.com/ViewUsage/ViewUsageServlet.servlet?siteID=#{site}&month=#{month}" ))
 
@@ -92,7 +92,8 @@ class Usage < ActiveRecord::Base
     rows[3..-4].each do |row|
       #debugger
       tds = row.xpath("td")
-      date, time_from, time_to, min_used, download, fap, upload = tds.collect {|td| td.content.to_html(:encode => 'UTF8').gsub("\302\240",'').strip }
+      date, time_from, time_to, min_used, download, fap, upload = 
+        tds.collect {|td| td.content.gsub("\302\240",'').strip } #.to_xhtml(:encoding => 'UTF8')
       # puts [date, time_to, download].join(' | ')
       period_from = [date, time_from].join(' ')
       usages << Usage.new( :site => site, :period_from => period_from, :min_used => min_used, 
