@@ -56,8 +56,13 @@ class UsagesController < ApplicationController
   def original
     # themonth = Time.now.strftime "%Y%%20%m"
     # @hughes_url = "http://customercare.myhughesnet.com/act_usage.cfm?siteid=#{@site_id}&themonth=#{themonth}"
-    @usage_html = Usage.fetch_hughes_report( current_site ).xpath('//body').to_s
-    render :action => :original, :layout => 'original'
+    #debugger
+    @usage_html = Usage.fetch_hughes_report( current_site ).xpath('//body').to_html(:encoding => 'UTF8')
+    if is_9series?
+      render :action => 'original-9series', :layout => 'original'
+    else
+      render :action => :original, :layout => 'original'
+    end
   end
   
   protected

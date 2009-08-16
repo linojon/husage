@@ -4,6 +4,17 @@
 
 	<%#= stylesheet_link_tag "http://customercare.myhughesnet.com/style/style.css"%>
 	<%= stylesheet_link_tag 'hughesnet' %>
+	<% if is_9series? %>
+		<%= stylesheet_link_tag "http://www.myhughesnet.com/ViewUsage/css/default.css" %>
+		<style>
+			.blueRow {
+			BACKGROUND-COLOR: #66ccff
+			}
+			.topnavlink{
+				color: #ffffff
+			}
+		</style>
+	<% end %>
   <%= stylesheet_link_tag 'style' %>
 </head>
 <body>

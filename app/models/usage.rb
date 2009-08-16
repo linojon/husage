@@ -51,7 +51,7 @@ class Usage < ActiveRecord::Base
   protected
   
   def self.hughes_report_name( site )
-    if site.upcase.starts_with? 'DSS'
+    if site.starts_with? 'DSS' #is_9series?
       'frm_usage_9series'
     else
       'act_usage'
@@ -59,11 +59,17 @@ class Usage < ActiveRecord::Base
   end
   
   def self.fetch_hughes_report( site, lastmonth=false )
-    # themonth in the format "2009 07"
-    if site.upcase.starts_with? 'DSS'
+    if site.ends_with? '-test'
+      #debugger
+      Nokogiri::HTML( open( "http://localhost:3003/testdata/#{site}.html" )) #run a separate server for this get ??!!!
+      #Nokogiri::HTML( open( "#{RAILS_ROOT}/public/testdata/#{site}.html" ))
+
+    elsif is_9series?
       month = lastmonth ? 'previous' : 'this'
       Nokogiri::HTML( open( "http://www.myhughesnet.com/ViewUsage/ViewUsageServlet.servlet?siteID=#{site}&month=#{month}" ))
+
     else
+      # themonth in the format "2009 07"
       if lastmonth
         themonth = (Time.now.in_time_zone(EASTERN) - 1.month).strftime "%Y%%20%m"
       else
@@ -71,14 +77,13 @@ class Usage < ActiveRecord::Base
       end
       Nokogiri::HTML( open( "http://customercare.myhughesnet.com/act_usage.cfm?siteid=#{site}&themonth=#{themonth}" ))
     end
-    #Nokogiri::HTML( open("http://localhost:3003/testdata/act_usage1.html"))
   end
   
   def self.parse_usages( site, report ) 
     # temporarily use eastern time, that's what the reports are
     current_zone = Time.zone
     Time.zone = EASTERN
-    if site.upcase.starts_with? 'DSS'
+    if is_9series?
       rows = report.xpath("//h2/../following::table/tr").to_a
     else
       rows = report.xpath("//div[@class='mainText']/following::table/tr").to_a #need to explicitly convert to array
@@ -87,7 +92,7 @@ class Usage < ActiveRecord::Base
     rows[3..-4].each do |row|
       #debugger
       tds = row.xpath("td")
-      date, time_from, time_to, min_used, download, fap, upload = tds.collect {|td| td.content.gsub("\302\240",'').strip }
+      date, time_from, time_to, min_used, download, fap, upload = tds.collect {|td| td.content.to_html(:encode => 'UTF8').gsub("\302\240",'').strip }
       # puts [date, time_to, download].join(' | ')
       period_from = [date, time_from].join(' ')
       usages << Usage.new( :site => site, :period_from => period_from, :min_used => min_used, 

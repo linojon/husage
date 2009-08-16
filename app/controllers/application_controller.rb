@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
 
   before_filter :set_user_time_zone
   
-  helper_method :current_site, :is_admin?
+  helper_method :current_site, :is_admin?, :is_9series?
   
   # authlogic
   filter_parameter_logging :password, :password_confirmation
@@ -78,5 +78,9 @@ class ApplicationController < ActionController::Base
         redirect_to usages_url
         return false
       end
+    end
+    
+    def is_9series?
+      current_site && (current_site.upcase.starts_with? 'DSS')
     end
 end
