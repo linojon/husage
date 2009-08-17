@@ -29,8 +29,12 @@ class Usage < ActiveRecord::Base
     count
   end
   
+  # returns -2 if not setup
+  # returns -1 if no updates
   def self.refresh( site )
     #debugger
+    count = Usage.count :conditions => {:site => site}
+    return -2 unless count > 0
     report = fetch_hughes_report( site )
     usages = parse_usages site, report
     return -1 if usages.blank?
@@ -79,7 +83,7 @@ class Usage < ActiveRecord::Base
       else
         themonth = Time.now.in_time_zone(EASTERN).strftime "%Y%%20%m"
       end
-      Nokogiri::HTML( open( "http://customercare.myhughesnet.com/act_usage.cfm?siteid=#{site}&themonth=#{themonth}" ))
+      Nokogiri::HTML( open( "http://customercare.myhughesnet.com/act_usage.cfm?siteid=#{site}&themonth=#{themonth}" ).read )
     end
   end
   

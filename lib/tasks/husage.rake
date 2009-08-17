@@ -12,17 +12,23 @@ namespace :husage do
     logger.info("#{Time.now} ================ start refeshAll ================")
     users = User.all :conditions => ["run_cron = ?", true]
     users.each do |user|
-      count = Usage.refresh( user.site )
-      if count==-1
-        logger.info("#{user.site}: BAD REPORT")
-      elsif count==0
-        user.update_attributes( :last_run_at => Time.now )
-        logger.info("#{user.site}: #{count} updated")        
-      else
-        notify_usage user if user.send_emails
-        Usage.delete_older_than user.site, 30
-        user.update_attributes( :last_run_at => Time.now )
-        logger.info("#{user.site}: #{count} updated")
+      begin
+        count = Usage.refresh( user.site )
+        if count==-2
+          logger.info("#{user.site}: NOT SETUP")
+        elsif count==-1
+          logger.info("#{user.site}: BAD REPORT")
+        elsif count==0
+          user.update_attributes( :last_run_at => Time.now )
+          logger.info("#{user.site}: #{count} updated")        
+        else
+          notify_usage user if user.send_emails
+          Usage.delete_older_than user.site, 30
+          user.update_attributes( :last_run_at => Time.now )
+          logger.info("#{user.site}: #{count} updated")
+        end
+      rescue
+        logger.info("#{user.site}: EXCEPTION THROWN")
       end
     end
     logger.info("#{Time.now} ================ end refeshAll ================")

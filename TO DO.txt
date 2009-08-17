@@ -15,3 +15,18 @@ option to select what minute to run hourly reports
 
 option to set FAP level and show MB remaining (dangerous)
 
+admin users
+		odd rows styles
+		show if not setup yet
+		tool to email bad accounts (disables cron if fails x times in a row?)
+		
+refershAll should skip uninitialized sites (and therefore bad accounts)
+		A. left join on find (NOT WORKING returns duplicates for each usage)
+				Foo.find(:all, :joins => "left join bars on bars.foo_id = foo.id", :conditions => "bars.id is not null" )
+				User.find(:all, :joins => "left join usages on usages.user_id = user.id", :conditions => "usages.id is not null" )
+				User.find(:all, :joins => "left join usages on usages.site = users.site", :conditions => "usages.site is not null" )
+				
+		B. add usages counter and check for 0
+				cache the bars_count then check for Foo.all(:conditions => ["bars_count = 0"])
+				HAVE TO ADD A user_id to USAGES AND DO has_many RELATIONSHIP
+		
