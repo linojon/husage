@@ -59,14 +59,18 @@ class Usage < ActiveRecord::Base
   end
   
   def self.fetch_hughes_report( site, lastmonth=false )
+    #debugger
     if site.ends_with? '-test'
-      #debugger
       Nokogiri::HTML( open( "http://localhost:3003/testdata/#{site}.html" )) #run a separate server for this get ??!!!
       #Nokogiri::HTML( open( "#{RAILS_ROOT}/public/testdata/#{site}.html" ))
 
     elsif site.starts_with? 'DSS' #is_9series?
       month = lastmonth ? 'previous' : 'this'
-      Nokogiri::HTML( open( "http://www.myhughesnet.com/ViewUsage/ViewUsageServlet.servlet?siteID=#{site}&month=#{month}" ))
+      #Nokogiri::HTML( open( "http://www.myhughesnet.com/ViewUsage/ViewUsageServlet.servlet?siteID=#{site}&month=#{month}" ))
+      # kludge to handle meta charset=UTF-16
+      s = open( "http://www.myhughesnet.com/ViewUsage/ViewUsageServlet.servlet?siteID=#{site}&month=#{month}" ).read
+      s.gsub!('charset=UTF-16', 'charset=UTF-8')
+      Nokogiri::HTML( s )
 
     else
       # themonth in the format "2009 07"
@@ -83,7 +87,7 @@ class Usage < ActiveRecord::Base
     # temporarily use eastern time, that's what the reports are
     current_zone = Time.zone
     Time.zone = EASTERN
-    if is_9series?
+    if site.starts_with? 'DSS' #is_9series?
       rows = report.xpath("//h2/../following::table/tr").to_a
     else
       rows = report.xpath("//div[@class='mainText']/following::table/tr").to_a #need to explicitly convert to array
