@@ -16,7 +16,7 @@ class User < ActiveRecord::Base
     c.login_field = 'site'
     #c.validates_format_of_login_field_options = { :case_sensitive => false, :with => /^[a-f0-9]+$/i, :message => "may only contain numbers and letters A-F." }
       # This should also work: /^[[:xdigit:]]+$/
-    
+    #c.validates_format_of_login_field_options = { :case_sensitive => false }
     c.validates_uniqueness_of_email_field_options = {:if => "false"}    
   end
   

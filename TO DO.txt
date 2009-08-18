@@ -14,6 +14,12 @@ optimize the report processing
 option to select what minute to run hourly reports
 
 option to set FAP level and show MB remaining (dangerous)
+		bucket metaphor ("Advanced: Voodoo Bucket")
+				normal refill rate
+				fap refill rate
+				
+option to send email every recalc, regardless of threshold
+		"Notice" (vs "Warning" and "Alert")
 
 admin users
 		odd rows styles
@@ -29,4 +35,7 @@ refershAll should skip uninitialized sites (and therefore bad accounts)
 		B. add usages counter and check for 0
 				cache the bars_count then check for Foo.all(:conditions => ["bars_count = 0"])
 				HAVE TO ADD A user_id to USAGES AND DO has_many RELATIONSHIP
-		
+
+rake husage:cleanup
+		removes accounts older than 30 days that have not been setup
+		(exception for admin etc)

@@ -22,10 +22,10 @@ namespace :husage do
           user.update_attributes( :last_run_at => Time.now )
           logger.info("#{user.site}: #{count} updated")        
         else
-          notify_usage user if user.send_emails
           Usage.delete_older_than user.site, 30
           user.update_attributes( :last_run_at => Time.now )
           logger.info("#{user.site}: #{count} updated")
+          notify_usage user if user.send_emails
         end
       rescue
         logger.info("#{user.site}: EXCEPTION THROWN")
@@ -46,6 +46,8 @@ end
 def notify_usage( user )
   most_recent = Usage.first :conditions => { :site => user.site }, :order => 'period_from DESC'
   # 24hr can be nil during free download periods
-  Notifier.deliver_usage_message( user, most_recent ) if most_recent && most_recent.download_24hr && 
-                                                              most_recent.download_24hr >= user.warning_threshold
+  if most_recent && most_recent.download_24hr && most_recent.download_24hr >= user.warning_threshold
+    logger.info("    notifying: #{most_recent.download_24hr}/#{user.warning_threshold}")
+    Notifier.deliver_usage_message( user, most_recent ) 
+  end
 end
