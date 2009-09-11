@@ -34,15 +34,17 @@ class UsagesController < ApplicationController
   
   def refresh
     count = Usage.refresh( current_site )
-    notify_usage current_user.warning_threshold if current_user.send_emails
     if count < 0
       flash[:notice] = "Error creating report.<br/>(Perhaps #{current_site} is not a valid HughesNet Site ID?)"
     elsif count == 0
       current_user.update_attributes( :last_run_at => Time.now )
+      # send email anyway when manual recalc (rake task doesnt do this)
+      notify_usage current_user.warning_threshold if current_user.send_emails
       flash[:notice] = 'No new updates'
     else
       Usage.delete_older_than current_site, 30
       current_user.update_attributes( :last_run_at => Time.now )
+      notify_usage current_user.warning_threshold if current_user.send_emails
       flash[:notice] = "Updated #{pluralize count, 'item'}"
     end
     redirect_to usages_path 

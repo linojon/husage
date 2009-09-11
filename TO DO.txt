@@ -19,14 +19,15 @@ option to set FAP level and show MB remaining (dangerous)
 				fap refill rate
 				
 option to send email every recalc, regardless of threshold
-		"Notice" (vs "Warning" and "Alert")
+		"Watch" (vs "Warning" and "Alert")
 
 admin users
 		odd rows styles
 		show if not setup yet
 		tool to email bad accounts (disables cron if fails x times in a row?)
+		paginate
 		
-refershAll should skip uninitialized sites (and therefore bad accounts)
+refreshAll should skip uninitialized sites (and therefore bad accounts)
 		A. left join on find (NOT WORKING returns duplicates for each usage)
 				Foo.find(:all, :joins => "left join bars on bars.foo_id = foo.id", :conditions => "bars.id is not null" )
 				User.find(:all, :joins => "left join usages on usages.user_id = user.id", :conditions => "usages.id is not null" )
@@ -39,3 +40,8 @@ refershAll should skip uninitialized sites (and therefore bad accounts)
 rake husage:cleanup
 		removes accounts older than 30 days that have not been setup
 		(exception for admin etc)
+
+admin: show rake.log
+
+timeout error: myhughesnet is not responding, it may be down? try again later
+

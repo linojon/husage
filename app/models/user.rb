@@ -37,6 +37,9 @@ class User < ActiveRecord::Base
     self.send_emails ||= true
     self.send_emails = nil if email.blank?
     self.run_cron ||= true
+    
+    self.site.strip!
+    true
   end
   
   def validate
