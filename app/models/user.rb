@@ -34,9 +34,9 @@ class User < ActiveRecord::Base
     self.alert_threshold ||= default_mb[:alert]
     self.fap_threshold ||= default_mb[:fap]
     
-    self.send_emails ||= true
+    self.send_emails = true if send_emails.nil?
     self.send_emails = nil if email.blank?
-    self.run_cron ||= true
+    self.run_cron = true if run_cron.nil?
     
     self.site.strip!
     true
