@@ -25,7 +25,7 @@ class UsagesController < ApplicationController
   def setup_create
     count = Usage.setup( current_site )
     if count <= 0
-      flash[:notice] = "Error creating report.<br/>(Perhaps #{current_site} is not a valid HughesNet Site ID?)"
+      flash[:notice] = "Error creating report.<br/>(Perhaps #{current_site} is not a valid HughesNet Site ID? You can change the Site ID under the Preferences tab)"
     else
       current_user.update_attributes( :last_run_at => Time.now )
     end
