@@ -1,4 +1,6 @@
 # Methods added to this helper will be available to all templates in the application.
+include ERB::Util
+
 module ApplicationHelper
   
   # like link_to_unless_current but wraps text in tag if current, and keeps link in either case
@@ -19,7 +21,7 @@ module ApplicationHelper
   
   HELP_TOPICS = {
     :hn_plan => 'If you tell us your HughesNet service plan (and Fair Access Policy threshold) we can initialize the Warning and Alert thresholds. Of course, you can change these settings in your Preferences. Leave blank and levels are set to minimum values',
-    :site_ID => 'Your HughesNet Site ID (for example, 123A56 or DSS123A567) can be found on the System Info page of your modem System Control Center',
+    :site_ID => html_escape('Your HughesNet Site ID (for example, 123A56 or DSS123A567) can be found on the System Info page of your modem System Control Center. This should be the same ID you would use in the original usage reports at HughesNet Customer Care http://customercare.myhughesnet.com/select_modem.html'),
     :site_id_not_editable => 'The Site ID cannot be changed once the Husage reports have been initialized. To change you must delete this Husage report and register a new one',
     :warning_threshold => 'Number of megabytes (MB) which signals a Warning for high internet usage downloads. For example, a value of 250 or 300 may be reasonable if your HughesNet FAP maximum is 400 MB',
     :alert_threshold => 'Number of megabytes (MB) which signals a red Alert for high internet usage downloads. For example, a value of 325 or 350 may be reasonable if your HughesNet FAP maximum is 400 MB',
