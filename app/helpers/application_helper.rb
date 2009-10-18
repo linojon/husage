@@ -19,7 +19,7 @@ module ApplicationHelper
   
   HELP_TOPICS = {
     :hn_plan => 'If you tell us your HughesNet service plan (and Fair Access Policy threshold) we can initialize the Warning and Alert thresholds. Of course, you can change these settings in your Preferences. Leave blank and levels are set to minimum values',
-    :site_ID => 'Your HughesNet Site ID can be found, for example, on the System Info page of your modem System Control Center',
+    :site_ID => 'Your HughesNet Site ID (for example, 123A56 or DSS123A567) can be found on the System Info page of your modem System Control Center',
     :site_id_not_editable => 'The Site ID cannot be changed once the Husage reports have been initialized. To change you must delete this Husage report and register a new one',
     :warning_threshold => 'Number of megabytes (MB) which signals a Warning for high internet usage downloads. For example, a value of 250 or 300 may be reasonable if your HughesNet FAP maximum is 400 MB',
     :alert_threshold => 'Number of megabytes (MB) which signals a red Alert for high internet usage downloads. For example, a value of 325 or 350 may be reasonable if your HughesNet FAP maximum is 400 MB',

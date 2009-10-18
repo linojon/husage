@@ -9,9 +9,9 @@
 <% form_for @user, :url => account_path do |f| %>
   <%= f.error_messages :header_message => 'Please try again!' %>
 	<%= f.label :site, 'HughesNet Site ID' %> <%= f.error_message_on :site %>
-	<%= form_help :site_ID %>
-	<br />
-	<%= f.text_field :site %>
+	<%= form_help :site_ID %>	<br />
+	<%= f.text_field :site %><br/>
+  <span style="font-size:small; font-style:italic"><%= ApplicationHelper::HELP_TOPICS[:site_ID] %></span></br>
 	<br />
 	<br />
 	<%= f.label :email %> <%= f.error_message_on :email %>
