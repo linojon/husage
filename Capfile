@@ -14,6 +14,8 @@ namespace :deploy do
   end
 
 	task :make_online, :roles => :app do
+    run "cd #{release_path}/public && cp -f online.htaccess .htaccess && chmod 644 .htaccess"
+        
     # config on server
     run "cd #{release_path}/config              && cp -f database.yml.online database.yml"
     run "cd #{release_path}/config              && cp -f environment.rb.online environment.rb"
@@ -31,8 +33,8 @@ namespace :deploy do
     # run "cd #{release_path} && mkdir private"
     # run "cd #{release_path} && chmod 755 private"
     # #run "cd #{release_path}/private && cp -f #{shared_path}/private.htaccess .htaccess"
-    # #run "cd #{release_path}/private && cp -f #{shared_path}/private.htpasswd .htpasswd"    
-        
+    # #run "cd #{release_path}/private && cp -f #{shared_path}/private.htpasswd .htpasswd"   
+     
     # # symlink shared file uploads (images, downloads, attachments)
     # run "cd #{release_path} && ln -s #{shared_path}/system/files #{release_path}/files"
     
