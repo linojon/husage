@@ -1,12 +1,11 @@
-set :application, "hughes" #"husage"
-set :domain, "rails.parkerhill.com"
+set :application, "husage"
+set :domain, "parkerhill.railsplayground.net"
 set :user, "parkerhi"
 
-set :repository,  "#{user}@#{domain}:/home/#{user}/git/#{application}"
-#set :repository,  "/home/#{user}/git/#{application}"
+set :repository,  "git://github.com/linoj/husage.git"
 set :scm, :git
-set :scm_username, user
-set :runner, user
+#set :scm_username, user
+#set :runner, user
 set :use_sudo, false
 set :branch, "master"
 set :deploy_via, :checkout
@@ -20,7 +19,8 @@ role :db, domain, :primary => true
 
 # set this for target deploy
 # (When fcgi, Remember to edit environment.rb for 'production')
-set :deploy_for, 'fcgi'
+set :deploy_for, 'passenger'
+#set :deploy_for, 'fcgi'
 #set :deploy_for, 'mongrel'
 
 #set :database, 'sqlite3'

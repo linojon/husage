@@ -2,8 +2,8 @@
 <% css = case
 		when usage.in_free_period? : 'freetime' 
 		when usage.fap == 'Yes' : 'fapped'
-		when usage.download_24hr >= @report_user.alert_threshold : 'level-alert'
-		when usage.download_24hr >= @report_user.warning_threshold : 'level-warning'
+		when usage.download_24hr && (usage.download_24hr >= @report_user.alert_threshold) : 'level-alert'
+		when usage.download_24hr && (usage.download_24hr >= @report_user.warning_threshold) : 'level-warning'
 		else '' 
 		end
 	%>

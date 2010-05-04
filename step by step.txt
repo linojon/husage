@@ -99,3 +99,70 @@ switch from sqlite to mysql
 	# restart
 	
 	
+================================
+5/3/2010 railsplayground
+
+first clean up changes made to master?!
+  $ git reset --hard
+  
+origin was on hostingrails, move it to github
+  create new repro on github, then
+  $ git remote rm origin
+  $ git remote add origin git@github.com:linoj/husage.git
+
+  $ git push origin master
+  
+deploy manually (not capistrano), as only app
+
+  ref http://wiki.railsplayground.com/railsplayground/show/Quick+Start+Guide+to+Rails+at+RailsPlayground
+  video https://support.hostingplayground.com/index.php?_m=knowledgebase&_a=viewarticle&kbarticleid=28&group=railsplayground
+
+  % git clone git://github.com/linoj/husage.git husage
+  % rm -rf public_html
+  % ln -s ~/husage/public ~/public_html
+  % chmod 755 husage/public
+  
+  create husage/public/.htaccess
+    RailsBaseURI /
+    PassengerAppRoot /home/parkerhi/husage                        
+  % chmod 644 husage/public/.htaccess
+  
+  edit config/environment.rb
+    ENV['RAILS_ENV'] ||= 'production'
+    
+  create database: via cpanel, parkerhi/lyman114parker
+    click on MySQL Database Wizard
+    
+    database name: husage_pro
+    generate password (copy and remember)
+    All Privileges
+    
+  edit config/database.yml ...
+  
+  % rake gems:install
+    Fail, request nokogiri from support
+    
+  % rake db:migrate
+  Link to site, see home page, woot!
+    
+  Connect to hostingrails rails.parkerhill.com cpanel,
+    export database via PhpMyAdmin, compressed
+  
+  Connect to new cpanel, PhpMyAdmin
+    delete tables
+    upload/import 
+    
+Capistrano
+  
+    
+    
+-----------------------
+TO RESTART THE APP
+  % cd /home/parkerhi/husage/public 
+  % touch tmp/restart.txt
+  
+  
+
+
+
+

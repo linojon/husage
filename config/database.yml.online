@@ -1,8 +1,8 @@
 production:
   adapter: mysql
   database: parkerhi_husagepro
-  username: parkerhi
-  password: lyman114parker
+  username: parkerhi_husage
+  password: 4wh*q!lC}_1.
 
 # production:
 #   adapter: sqlite3
