@@ -22,6 +22,9 @@ role :db, domain, :primary => true
 set :deploy_for, 'passenger'
 #set :deploy_for, 'fcgi'
 #set :deploy_for, 'mongrel'
+set :public_html, 'shared'
+#set :public_html, 'single'
 
 #set :database, 'sqlite3'
 set :database, 'mysql'
+

@@ -153,9 +153,36 @@ deploy manually (not capistrano), as only app
     upload/import 
     
 Capistrano
+  hacked for single app as public_html
+
+Multiple domains
+  cpanel: Addon Domain
+    add husage.net as public_html/husage
+    
+  change DNS in verio to 68.233.10.148 (from 66.84.0.140)
+    
+
+Capistrano
+  deploy.rb
+    set the variables for 
+      :application, :domain, :user
+      :repository, :scm, & options (eg :git_shallow_clone)
+      :deploy_to "/home/#{user}/apps/#{application}"
+      my settings for :deploy_for, :public_html
+      
+  Capfile
+    (keep it standard for all projects)
+    
+  $ cap deploy:setup
   
+      
+      
     
-    
+
+Crontab
+
+
+
 -----------------------
 TO RESTART THE APP
   % cd /home/parkerhi/husage/public 
